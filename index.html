@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>คุมกฎกะดึก — Night Shift Rules</title>
+<meta name="description" content="เกมสยองขวัญพิกเซลอาร์ต ทำตามกฎให้รอดทั้ง 5 คืน — คุณคือผู้จัดการที่เฝ้าดูกล้องวงจรปิดของมินิมาร์ท ทำตามสมุดกฎ กดผิดคือพนักงานตาย">
+<meta name="theme-color" content="#0a0f20">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%230a0f20'/%3E%3Cpath fill='%23e8eef8' d='M2 1h4v1h1v5h-1v-1h-1v1h-1v-1h-1v1h-1v-1h-1v1h-1v-5h1z'/%3E%3Cpath fill='%230a0f20' d='M2 3h1v1h-1zM5 3h1v1h-1z'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="คุมกฎกะดึก — Night Shift Rules">
+<meta property="og:description" content="เกมสยองขวัญพิกเซลอาร์ต ทำตามกฎให้รอดทั้ง 5 คืน — คุณคือผู้จัดการที่เฝ้าดูกล้องวงจรปิดของมินิมาร์ท ทำตามสมุดกฎ กดผิดคือพนักงานตาย">
+<meta property="og:image" content="https://napmeks.github.io/kumkot/og.png">
+<meta property="og:url" content="https://napmeks.github.io/kumkot/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="คุมกฎกะดึก — Night Shift Rules">
+<meta name="twitter:description" content="เกมสยองขวัญพิกเซลอาร์ต ทำตามกฎให้รอดทั้ง 5 คืน — คุณคือผู้จัดการที่เฝ้าดูกล้องวงจรปิดของมินิมาร์ท ทำตามสมุดกฎ กดผิดคือพนักงานตาย">
+<meta name="twitter:image" content="https://napmeks.github.io/kumkot/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070914;--ink:#e4e8f2;--dim:#8590ab;--red:#d8344a;--cy:#5ee8c8;--amber:#f0c04a;--blue:#4aa0ff;--panel:#0d1222;--line:#2a3654;--out:#05070e}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:'Noto Sans Thai','Sarabun','Leelawadee UI',system-ui,-apple-system,'Segoe UI',sans-serif;overflow:hidden;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.px{font-family:'Press Start 2P','Noto Sans Thai',monospace}
+#app{position:fixed;inset:0;max-width:540px;margin:0 auto;background:#090c1a}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;padding:14px;overflow-y:auto}
+.screen.on{display:flex}
+h1{margin:6px 0 4px;font-size:26px;letter-spacing:1px;color:#fff;text-shadow:3px 3px 0 #7a1020,0 0 14px rgba(216,52,74,.5)}
+h2{margin:4px 0 8px;font-size:19px}
+.sub{color:var(--dim);font-size:14px;line-height:1.55;margin:0 0 12px}
+.btn{appearance:none;font:inherit;font-size:16px;color:var(--ink);background:#26345a;border:3px solid var(--out);border-radius:0;padding:10px 14px;cursor:pointer;box-shadow:inset 3px 3px 0 #46598c,inset -3px -3px 0 #141d38}
+.btn:active{transform:translate(2px,2px);box-shadow:inset 3px 3px 0 #141d38,inset -3px -3px 0 #46598c}
+.btn.main{background:#a82a3c;box-shadow:inset 3px 3px 0 #e0586a,inset -3px -3px 0 #5e1220;color:#fff;font-weight:700}
+.btn.ghost{background:#141b30;box-shadow:inset 3px 3px 0 #2c3a5e,inset -3px -3px 0 #0a0f1e}
+.btn.blue{background:#1f5ec0;box-shadow:inset 3px 3px 0 #5aa0ff,inset -3px -3px 0 #0f2f66;color:#fff;font-weight:700;font-size:14px;padding:8px 10px;width:100%}
+.langbtn{font-size:13px;padding:8px 10px;min-width:64px}
+.btn[disabled]{opacity:.35;pointer-events:none}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.card{background:var(--panel);border:3px solid var(--out);border-radius:0;padding:10px 12px;margin:0 0 10px;box-shadow:inset 0 0 0 2px #2c3a5e}
+.card b{color:#fff}
+.how li{margin:5px 0;line-height:1.5;font-size:14px}
+.how ol{padding-left:20px;margin:6px 0}
+.rule{border-left:4px solid var(--red);padding:6px 10px;margin:8px 0;background:#080b18}
+.rule.gen{border-left-color:var(--blue)}
+.rule .t{font-weight:700;color:#fff;font-size:14px}
+.rule .r{font-size:13px;color:#d0d7e8;margin-top:2px;line-height:1.45}
+.rule .f{font-size:13px;color:var(--cy);margin-top:3px;line-height:1.5}
+.rule .f.sm{color:var(--amber);letter-spacing:.5px}
+.ico{width:18px;height:18px;image-rendering:pixelated;vertical-align:-4px;margin-right:2px}
+.note{font-size:13px;color:var(--amber);margin:6px 0;line-height:1.45}
+.staffrow{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.stf{font-size:12.5px;background:#080b18;border:2px solid var(--line);padding:6px 8px;line-height:1.4}
+.stf.dead{opacity:.45}
+.stf i{display:inline-block;width:9px;height:9px;margin-right:5px;border:1px solid #000}
+.spacer{flex:1}
+#titleCv{width:100%;aspect-ratio:5/3;image-rendering:pixelated;border:3px solid var(--out);box-shadow:0 0 0 2px #2c3a5e;margin:2px 0 10px;display:block}
+
+/* game */
+#hud{display:flex;align-items:center;gap:8px;padding:2px 2px 8px}
+#clock{font-size:14px;color:#fff;line-height:1.2;white-space:nowrap}
+#nightlbl{font-size:11px;color:var(--dim);margin-top:2px}
+#alertbar{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;line-height:1.35;padding:5px 7px;border:2px solid #232f4e;background:#0a0f20;color:var(--dim);text-align:center}
+#alertbar.red{border-color:var(--red);background:#3a0a14;color:#ffd0d6;animation:redp 1s steps(2) infinite}
+#alertbar.blue{border-color:var(--blue);background:#0c2a5a;color:#d6e8ff}
+@keyframes redp{50%{background:#5a0e1c}}
+#alivebox{font-size:13px;white-space:nowrap}
+.sq{padding:6px 9px;font-size:16px}
+#grid{flex:none;display:grid;grid-template-columns:1fr 1fr;gap:6px;position:relative}
+.tile{position:relative;border:2px solid #1c2640;overflow:hidden;background:#000;min-height:0;aspect-ratio:1/1}
+.tile canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
+.tile.sel{border-color:var(--cy)}
+.tile.away{border-color:#8a6a1a}
+.tile.warn{border-color:var(--amber)}
+.tile.danger{border-color:var(--red);animation:blink .5s steps(2) infinite}
+.tile.dead{border-color:#3b1118}
+@keyframes blink{50%{border-color:#ff9aa8}}
+.scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px)}
+.tl{position:absolute;left:4px;top:3px;right:4px;font-size:9px;color:#dff8f0;text-shadow:1px 1px 0 #000;display:flex;justify-content:space-between;pointer-events:none;gap:4px}
+.tile.sel .tl span:first-child::before{content:'▶ ';color:var(--cy)}
+.tl .rec{color:#ff5a6a;animation:rec 1s steps(2) infinite}
+@keyframes rec{50%{opacity:0}}
+.cap{position:absolute;left:3px;right:3px;top:20px;font-size:11px;line-height:1.3;color:#f4f6ff;text-align:center;background:rgba(5,7,14,.92);border:2px solid #cfd6e8;outline:2px solid #05070e;padding:2px 4px;pointer-events:none}
+.cap:empty{display:none}
+.cap.bad{color:#ffb0ba}.cap.ok{color:#a4f4cc}.cap.dead{color:#ff6b7e;font-weight:700}.cap.warn{color:#ffe08a;border-color:#f0c04a}
+.nm{position:absolute;left:3px;bottom:9px;font-size:10px;line-height:1.25;color:#fff;background:rgba(5,7,14,.8);padding:0 4px;pointer-events:none}
+.nm:empty{display:none}
+.bar{position:absolute;left:0;right:0;bottom:0;height:6px;background:#05070e;border-top:2px solid #05070e}
+.bar i{display:block;height:100%;width:0;background:#4c4}
+#grid,#toast{width:min(100%,max(280px,calc(100vh - 395px)));width:min(100%,max(280px,calc(100dvh - 395px)));margin-left:auto;margin-right:auto}
+#toast{height:42px;margin-bottom:6px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:2px 8px;background:#0c1a3a;border:3px solid #1f3a78;color:#fff;font-size:12px;line-height:1.3;flex:none}
+#toast.on{background:#1f5ec0;border-color:#fff;box-shadow:0 0 0 2px #05070e,inset 0 0 0 2px #3f86f0;animation:tpop .25s steps(3)}
+#toast span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@keyframes tpop{from{transform:scale(.97)}to{transform:none}}
+@keyframes fade{0%{opacity:0;transform:translateY(-6px)}8%{opacity:1;transform:none}80%{opacity:1}100%{opacity:0}}
+#cheat{display:flex;flex-wrap:wrap;gap:3px;padding-top:6px;min-height:128px;align-content:flex-start}
+.chip{font-size:11px;line-height:1.2;background:#0b1020;border:1px solid var(--line);padding:1px 5px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.chip b{font-size:8px;color:var(--cy)}
+.chip .ico{width:15px;height:15px;vertical-align:-3px;margin-right:0}
+.chip i{color:var(--amber);font-style:normal;font-weight:700}
+#selinfo{font-size:12px;line-height:1.25;color:var(--dim);text-align:center;padding:8px 0 6px;margin-top:auto}
+#selinfo b{color:var(--cy)}
+#tools{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding-top:6px}
+.tool{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px 5px;font-size:10px;line-height:1.2}
+.tool canvas{width:24px;height:24px;image-rendering:pixelated}
+#flash{position:fixed;inset:0;background:#c0182c;opacity:0;pointer-events:none;z-index:20}
+#bflash{position:fixed;inset:0;background:#3a8cff;opacity:0;pointer-events:none;z-index:20}
+.shake{animation:shk .5s steps(6)}
+@keyframes shk{20%{transform:translate(-6px,3px)}40%{transform:translate(6px,-4px)}60%{transform:translate(-4px,-2px)}80%{transform:translate(4px,3px)}}
+#overlay{position:absolute;inset:0;background:rgba(3,4,10,.97);display:none;flex-direction:column;padding:14px;overflow-y:auto;z-index:10}
+#overlay.on{display:flex}
+#scare{position:fixed;inset:0;background:#000;display:none;z-index:30;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+#scare.on{display:flex}
+#scare canvas{width:min(92vw,480px);aspect-ratio:5/4;image-rendering:pixelated;border:3px solid #500}
+#scare p{color:#ff6b7e;font-size:20px;font-weight:700;margin:0;text-align:center;padding:0 16px}
+.big{font-size:44px;text-align:center;margin:10px 0}
+.stat{display:flex;justify-content:space-between;padding:6px 0;border-bottom:2px dotted var(--line);font-size:15px}
+#resCredit{text-align:center;margin:8px 0 0}
+#resCredit b,#endCredit b{display:block;color:#fff;font-size:17px;margin-bottom:4px}
+#resCredit span,#endCredit span{display:block;font-size:12px;color:var(--dim);line-height:1.5;margin-top:3px}
+#endCredit{text-align:center;margin:6px 0 4px}
+#endCredit .cc{color:#c9d1e8}
+@media (max-height:740px){
+ #s-game{padding:5px 4px!important}
+ #hud{padding:0 2px 4px;gap:6px}
+ #clock{font-size:13px}#nightlbl{font-size:10px;margin-top:1px}
+ #alertbar{font-size:10.5px;line-height:1.25;padding:3px 6px}
+ #hud .btn.sq{padding:4px 8px;font-size:15px}
+ #grid,#toast{width:min(100%,max(210px,calc(100vh - 296px)));width:min(100%,max(210px,calc(100dvh - 296px)))}
+ #toast{height:30px;margin-bottom:3px;font-size:11px;line-height:1.25;padding:1px 6px;border-width:2px}
+ #grid{gap:3px}
+ #cheat{padding-top:4px;gap:3px;min-height:104px}
+ .chip{font-size:10px;padding:0 4px;gap:3px}
+ .chip .ico{width:14px;height:14px}
+ #selinfo{font-size:11px;padding:4px 0 3px}
+ #btnBlue{font-size:12px;padding:5px 8px;line-height:1.25}
+ #tools{gap:4px;padding-top:4px}
+ .tool{padding:3px 1px 3px;font-size:9.5px;gap:1px}
+ .tool canvas{width:20px;height:20px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- TITLE -->
+  <div id="s-title" class="screen on">
+    <h1 data-t="0">คุมกฎกะดึก</h1>
+    <div class="px" style="text-align:center;font-size:9px;color:#8590ab;margin:-6px 0 8px;letter-spacing:2px">PUBLIC BETA</div>
+    <div id="plays" style="display:none;text-align:center;font-size:12px;color:#9fb4e8;margin:-2px 0 8px"></div>
+    <canvas id="titleCv" width="80" height="48"></canvas>
+    <p data-t="1" class="sub">คุณคือ <b id="mgrName"></b> ผู้จัดการร้านสะดวกซื้อ 24 ชม. นั่งดูกล้องวงจรปิดอยู่ในห้องควบคุม — ลูกน้องกำลังจะทำผิด “กฎ” ของร้านทีละคน และมีบางอย่างรอเอาตัวพวกเขาอยู่</p>
+    <div class="card how">
+      <b data-t="2">วิธีเล่น</b>
+      <ol>
+        <li data-t="9">ดูกล้อง 4 ตัว ถ้ามีอะไรผิดปกติ แถบใต้ภาพจะค่อยๆ เต็ม (เขียว → แดง)</li>
+        <li data-t="10"><b>แตะกล้อง</b> แล้วกด<b>เครื่องมือ</b>ตามสมุดกฎ 📖 — <b>กดผิด พนักงานโดนผีเอาไปทันที</b></li>
+        <li data-t="11">พนักงานหายจากกล้อง หรือจอดำ? <b>กดกระดิ่ง</b>เรียกคนมาประจำ · ไฟแดง = ผีดุขึ้น · 💙 ไฟสีฟ้าใช้ได้คืนละครั้ง</li>
+        <li data-t="12">รอดถึง <b>6 โมงเช้า</b> ครบ 5 คืน — คนที่ถูกผีเอาไปจะไม่กลับมา</li>
+      </ol>
+    </div>
+    <div class="spacer"></div>
+    <div class="row" style="margin-bottom:8px"><button class="btn ghost" id="btnCont" style="flex:1;display:none"></button></div>
+    <div class="row"><button data-t="3" class="btn main" id="btnStart" style="flex:1">▶ เริ่มเกมใหม่</button><button class="btn sq" id="btnMute0">🔊</button><button class="btn sq langbtn"></button></div>
+    <div class="row" style="margin-top:8px"><button class="btn ghost" id="btnSur" style="flex:1;border-color:#d8344a"></button></div>
+    <p class="sub" id="surDesc" style="margin:6px 0 0;font-size:12px;text-align:center"></p>
+    <p data-t="4" class="sub" style="margin-top:10px;font-size:12px">เกมต้นแบบแนว rules-of-horror · ตัวละคร ผี และภาพพิกเซลเป็นงานต้นฉบับ · แนะนำให้เปิดเสียง</p>
+  </div>
+
+  <div id="surWarn" style="display:none;position:fixed;inset:0;z-index:50;background:rgba(4,6,14,.88);align-items:center;justify-content:center;padding:18px">
+    <div class="card" style="max-width:340px;width:100%;border-color:#d8344a;text-align:center">
+      <div style="font-size:34px">☠</div>
+      <b data-t="15" style="font-size:18px;display:block;margin:4px 0 8px">โหมดนี้ไม่เหมาะกับมือใหม่</b>
+      <p data-t="16" class="sub" style="margin:0 0 14px;line-height:1.5">Survivor Mode ยากขึ้นทุกคืนและไม่มีวันจบ แนะนำให้เล่นโหมดปกติให้จบ 5 คืนก่อน จะได้รู้กฎทั้งหมดและสนุกกว่า</p>
+      <div class="row"><button data-t="17" class="btn ghost" id="btnWarnBack" style="flex:1">← กลับ</button><button data-t="18" class="btn main" id="btnWarnGo" style="flex:1">ลุยเลย ☠</button></div>
+    </div>
+  </div>
+
+  <!-- BRIEF -->
+  <div id="s-brief" class="screen">
+    <h2 id="briefTitle"></h2>
+    <p class="sub" id="briefSub"></p>
+    <div class="card"><b data-t="5">สมุดกฎประจำคืนนี้</b><div id="briefRules"></div></div>
+    <div class="card"><b data-t="6">ลูกน้องกะนี้</b><div class="staffrow" id="briefStaff" style="margin-top:6px"></div></div>
+    <div class="spacer"></div>
+    <div class="row"><button data-t="7" class="btn ghost" id="btnBriefBack">← กลับ</button><button data-t="8" class="btn main" id="btnGo" style="flex:1">เข้าห้องควบคุม เที่ยงคืน</button><button class="btn sq langbtn"></button></div>
+  </div>
+
+  <!-- GAME -->
+  <div id="s-game" class="screen" style="padding:6px 5px">
+    <div id="hud">
+      <div><div id="clock" class="px">12:00 AM</div><div id="nightlbl">คืนที่ 1</div></div>
+      <div id="alertbar">ร้านเงียบ...</div>
+      <div id="alivebox">👥 4/4</div>
+      <button class="btn sq" id="btnRules">📖</button>
+      <button class="btn sq" id="btnMute">🔊</button>
+    </div>
+    <div id="toast"></div>
+    <div id="grid"></div>
+    <div id="cheat"></div>
+    <div id="selinfo"></div>
+    <button class="btn blue" id="btnBlue">💙 ไฟสีฟ้า — ทุกอย่างกลับเป็นปกติ 15 นาที (ใช้ได้ 1 ครั้ง)</button>
+    <div id="tools"></div>
+    <div id="overlay"></div>
+  </div>
+
+  <!-- SURVIVOR SCORE -->
+  <div id="s-score" class="screen">
+    <h2 id="scTitle" style="text-align:center"></h2>
+    <img id="scImg" alt="" style="width:100%;max-width:400px;margin:0 auto 6px;display:block;border:3px solid var(--out);box-shadow:0 0 0 2px #2c3a5e">
+    <p class="sub" id="scHint" style="text-align:center;margin:0 0 4px"></p>
+    <p class="sub" id="scMsg" style="text-align:center;color:#a4f4cc;margin:0;min-height:20px;word-break:break-all"></p>
+    <div class="spacer"></div>
+    <div class="row" style="margin-bottom:8px"><button class="btn main" id="btnScSave" style="flex:1"></button><button class="btn main" id="btnScShare" style="flex:1"></button></div>
+    <div class="row"><button class="btn ghost" id="btnScAgain" style="flex:1"></button><button class="btn ghost" id="btnScMenu" style="flex:1"></button><button class="btn sq langbtn"></button></div>
+  </div>
+
+  <!-- ENDING -->
+  <div id="s-end" class="screen">
+    <div class="px" id="endKicker" style="text-align:center;font-size:8px;color:#f0c04a;letter-spacing:1px;margin:4px 0 2px"></div>
+    <h1 id="endTitle" style="text-align:center"></h1>
+    <canvas id="endCv" width="80" height="48"></canvas>
+    <p class="sub" id="endText"></p>
+    <p class="sub" id="endTag" style="color:#f0c04a;margin-top:-6px"></p>
+    <div class="card"><b id="endHead"></b><div class="staffrow" id="endStaff" style="margin-top:6px"></div></div>
+    <div id="endCredit"></div>
+    <p class="sub" id="endMsg" style="text-align:center;color:#a4f4cc;word-break:break-all"></p>
+    <div class="spacer"></div>
+    <div class="row" style="margin-bottom:8px"><button class="btn main" id="btnShare" style="flex:1"></button></div>
+    <div class="row"><button class="btn ghost" id="btnAgain" style="flex:1"></button><button class="btn ghost" id="btnEndMenu" style="flex:1"></button><button class="btn sq langbtn"></button></div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="s-result" class="screen">
+    <div class="big" id="resIcon"></div>
+    <h2 id="resTitle" style="text-align:center"></h2>
+    <p class="sub" id="resText" style="text-align:center"></p>
+    <div class="card" id="resStats"></div>
+    <div class="staffrow" id="resStaff" style="margin-bottom:6px"></div>
+    <div id="resCredit"></div>
+    <div class="spacer"></div>
+    <div class="row" id="resBtns"></div>
+  </div>
+</div>
+
+<div id="flash"></div><div id="bflash"></div>
+<div id="scare"><canvas id="scareCv" width="80" height="64"></canvas><p id="scareTxt"></p></div>
+
+<script>
+(function(){
+'use strict';
+var LANG='th';
+try{var _lg=localStorage.getItem('kumkot_lang');if(_lg==='en'||_lg==='th')LANG=_lg;}catch(e){}
+var EN={"0": "Boss Chot", "1": "Cashier", "2": "Shelves", "3": "Freezer", "4": "Stockroom", "5": "Kwang", "6": "Age 25. Determined and very careful. Looking for her brother who vanished from the store.", "7": "Aren't you scared to work here?", "8": "Ever seen anything weird around here?", "9": "Memorize the rules. Don't forget even one.", "10": "I have to find out where my brother went.", "11": "Mek", "12": "Single dad, ex-cop. Calm and cautious. Buried in debt, worried about his daughter.", "13": "What is this place, really?", "14": "Ten thousand a night... will I actually get paid?", "15": "My daughter must be asleep by now. I have to make it home.", "16": "If someone calls your name, don't answer. Repeat it.", "17": ", are you watching the cameras?", "18": "Namtan", "19": "Cheerful, the light of the store. Just moved over to the night shift.", "20": "Day shift was way more fun.", "21": "Keep smiling. Customers like people who smile.", "22": "Just now... was someone standing over there?", "23": "Welcome in~ ...right?", "24": "Keng", "25": "Kwang's older brother. He once vanished. Jumpy, afraid of the freezer.", "26": "Did you hear something...", "27": "Stay away from that freezer.", "28": "I'm so worried about my sister.", "29": "This store has a secret. I can feel it.", "30": "Bell", "31": "Staff", "32": "Radio", "33": "Lights off", "34": "Lock", "35": "Incense", "36": "No shadow", "37": "The customer with no shadow", "38": "Never talk to a customer with no shadow.", "39": "Greet them as usual and they leave.", "40": "“Welcome!”", "41": "“Hello... what can I get you?”", "42": "“Let me give you your change first...”", "43": "Child voice", "44": "A child's voice calling from the shelves", "45": "Never answer a child's voice from the shelves.", "46": "Turn the radio up to drown it out.", "47": "▒▒▒ loud ▒▒▒ drown ▒▒▒", "48": "“...Sis... Sis...”", "49": "“Where are you? Come out, sweetie.”", "50": "Freezer shadow", "51": "A shadow in the freezer glass", "52": "Never look at a freezer shadow that isn't yours.", "53": "Switch off the freezer light.", "54": "Switch▒▒▒ freezer ▒▒▒ shadow▒▒▒", "55": "“In the glass... someone else is standing behind me.”", "56": "“Maybe I should turn around...”", "57": "Knocking", "58": "Knocking at the stockroom", "59": "Never open the stockroom after three knocks.", "60": "Lock the door until the knocking stops.", "61": "▒▒▒ lock▒▒▒ door ▒▒▒ stops", "62": "*knock... knock... knock...*", "63": "“Is anyone in there? Open up...”", "64": "Phone", "65": "A staff member's mobile phone rings", "66": "Never answer a phone while on duty (any cam).", "67": "Remind them not to pick up.", "68": "“No phone calls while on duty!”", "69": "*bzzt... bzzt...* “My phone's buzzing. Who's calling?”", "70": "“Just a quick call won't hurt...”", "71": "Doll", "72": "The doll on the shelf turns to look", "73": "Never meet the eyes of a doll that turns to look.", "74": "Light incense and it goes still.", "75": "▒▒▒ incense ▒▒▒ shelf ▒▒▒", "76": "“That doll... wasn't it facing the other way a second ago?”", "77": "“Maybe I should look it in the eye...”", "78": "Handprint", "79": "A handprint pressed on the freezer glass from inside", "80": "Never open the freezer if a handprint is pressed from inside.", "81": "Lock it first, then switch off its light.", "82": "Lock▒▒▒ first, then▒▒▒ light ▒▒▒", "83": "“There's a hand on the glass... like it wants me to open up.”", "84": "“Better open it, before they get cold...”", "85": "Floating food", "86": "Food floating in mid-air, waiting to be microwaved", "87": "Never heat food floating by the microwave.", "88": "Ask staff to wait, then lock the microwave.", "89": "“Please wait a moment while I heat it up.”", "90": "“There's a floating lunch box... should I just heat it up?”", "91": "“It'll only take a second in the microwave...”", "92": "Delivery", "93": "A delivery person arrives at the stockroom", "94": "A normal delivery person arrives at the stockroom.", "95": "Press Lights off; staff tells them to leave it here.", "96": "Wrong press: red light for 30 min, nobody dies.", "97": "“Just leave it right here.”", "98": "📦 The delivery person has arrived", "99": "📦 The delivery person is waiting", "100": "Whisper", "101": "A whisper calling our name from the stockroom", "102": "Never answer a voice calling your name from the stockroom.", "103": "Turn on the radio, then light incense.", "104": "▒▒▒ radio ▒▒▒ then ▒▒▒ incense", "105": "“Who's calling my name...?”", "106": "“Answering just once should be fine...”", "107": "Night one. One rule per camera. The lights are on and the store is quiet... but not for long.", "108": "Staff mobile phones start ringing, staff start vanishing from the cameras, and the emergency red light comes on for the first time.", "109": "The dolls on the shelves begin to stare, the red light lasts longer, and the first delivery person arrives at the stockroom.", "110": "Rules get complicated. Floating food at the microwave, some rules need two steps in order, and the red light comes on twice.", "111": "The final night. Whispers from the stockroom, the longest red light, and the ghosts won't let anyone off easy.", "112": "<div class=\"rule\"><div class=\"t\">Rule ", "113": "<div class=\"f sm\">How to prevent: ", "114": "Do", "115": "Fix", "116": "<div class=\"rule gen\"><div class=\"t\">⚠ Wrong press = a staff member is taken</div><div class=\"r\">Tap the cam, check the rulebook, then press.</div></div>", "117": "<div class=\"rule\"><div class=\"t\">Special · Never leave the cashier empty <span style=\"color:#8590ab;font-weight:400\">(CAM1)</span></div><div class=\"r\">Not for more than <b>15 game minutes</b>, or a random staff member is taken.</div><div class=\"f\">Fix: press the Bell on CAM1 while it is black to call someone over.</div></div>", "118": "<div class=\"rule gen\"><div class=\"t\">🚶 Black cam — nobody on duty</div><div class=\"r\">Ghosts can still come. Press the <b>Bell</b> to call a free staff member over, then follow that rule (no-shadow customer: Bell → Staff).</div></div>", "119": "<div class=\"rule gen\"><div class=\"t\">👀 Staff vanished from the cam</div><div class=\"r\">If a ghost comes, <b>always press the Bell first</b>, then follow that rule. No ghost yet? Just wait — they return on their own.</div></div>", "120": "<div class=\"rule gen\"><div class=\"t\">🚨 A staff member is taken</div><div class=\"r\">Every time a staff member dies during the night, the red light comes on for <b>30 game minutes</b> (ghosts come faster and more often), as long as the store was normal at that moment — if the red light is already on, it won't stack.</div></div>", "121": "<div class=\"rule gen\"><div class=\"t\">🚨 Red light = stronger ghosts</div><div class=\"r\">Comes on at times, and for 30 game minutes whenever a staff member is taken.</div></div>", "122": "<div class=\"rule gen\"><div class=\"t\">💙 Blue light</div><div class=\"r\">Once <b>per night</b>: everything goes back to normal for 15 minutes.</div></div>", "123": "<div class=\"note\">🩸 Some prevention methods are covered by spilled liquid or blood and can't be read. Guess from the leftover letters and the rules you already know.</div>", "124": "All cams", "125": "⏩ Continue · Night ", "126": " · Team left: ", "127": "Night ", "128": "✝ Gone", "129": "6 AM — You survived all 5 nights", "130": "6 AM — You made it through another night", "131": "Nobody went missing. The whole team of 4 is still here.", "132": "Team left: ", "133": " — they made it together to the final morning", "134": "Nobody went missing tonight. Team left: ", "135": " staff", "136": "Tonight you lost ", "137": " staff. Team left: ", "138": ". They will not be coming back.", "139": "✓ Survived", "140": "✝ Didn't make it", "141": "No one survived this shift", "142": "The ghosts took your whole crew, then came for ", "143": " in the control room.", "144": "<div class=\"stat\"><span>Team left</span><b>", "145": "<div class=\"stat\"><span>Saved in time</span><b>", "146": " times</b></div>", "147": "<div class=\"stat\"><span>Blue light</span><b>", "148": "Used", "149": "Not used", "150": "Back to menu", "151": "Next night →", "152": "Menu", "153": "Retry this night", "154": "💙 Blue light — reset all (15 min · once)", "155": "Tap the camera with the anomaly, then press a tool. A wrong press costs a life. Check the rulebook 📖", "156": "Tap a camera, then press a tool", "157": "Selected: <b>", "158": "nobody on duty (black screen)", "159": "", "160": "", "161": "", "162": "me", "163": "me", "164": "📦 A delivery person has arrived at the stockroom (CAM4)", "165": " walked from ", "166": " to ", "167": " vanished from camera ", "168": " was taken by the ghost", "169": "💙 Everything is normal right now — nothing to do", "170": "Tap a camera first, then press a tool", "171": "Nobody is on duty at this camera — press the Bell to call a staff member over", "172": "No free staff member to call right now!", "173": "“Coming, ", "174": "The staff member has vanished from the camera, but there is no ghost yet — wait for them to come back", "175": "Pressed a tool with no anomaly", "176": "⚠ Wrong use — red light on for 30 game minutes (staff is fine)", "177": "Nobody is here, the tool has no effect — press the Bell to call someone first", "178": "Used the wrong tool", "179": "“Thank you, ", "180": "... that was close.”", "181": "“I'm here! But it's not over yet!”", "182": "“A little better... but it's not gone yet!”", "183": "“...It feels like everything is back to normal.”", "184": "“Blue light... so comforting.”", "185": "“Was I just dreaming?”", "186": "💙 Blue light — everything back to normal", "187": "💙 Blue light used", "188": "🚨 A staff member was taken — red light for 30 game minutes", "189": "Your whole crew is gone... the ghost turns to ", "190": "Blue light is over — be careful", "191": "🚨 Cashier empty for over 15 min — the ghost took ", "192": " instead", "193": "“Sorry, I was in the restroom.”", "194": "👻 Ghost at ", "195": " is unattended — it goes after ", "196": " instead", "197": "🚨 Cashier empty! ", "198": " s left — press the Bell to call someone", "199": "Nobody on duty here", "200": "⚠ Nobody here, ghost is coming — press the Bell to call someone", "201": "⚠ Staff vanished! Ghost is coming — press the Bell first", "202": "👀 Staff vanished from the camera...", "203": "💙 All normal (", "204": " s left)", "205": " s", "206": "🚨 Red light! Until ", "207": "All quiet", "208": "<h2>📖 Rulebook — Night ", "209": "</h2><p class=\"sub\">The game is paused while you read</p>", "210": "<div class=\"spacer\"></div><div class=\"row\"><button class=\"btn main\" id=\"btnCloseRules\" style=\"flex:1\">Back to the cameras</button><button class=\"btn sq langbtn\"></button></div>", "211": "The sun is up, but only one of your crew is left standing. Who will they tell about tonight, and will anyone believe them?", "212": "The first light of day spills into the store. Two of you survived. The store has never been this quiet, and some of those rules you will never forget.", "213": "The first light of day spills into the store. Three of your crew made it. One empty spot nobody dares to look at, but the rest are still here, and so are you.", "214": "The first light of day spills into the store. All four of your crew are still standing and nobody was lost. The store is safe tonight... at least until the next night shift.", "215": "The sun is up, but only one of your crew is left standing. Who will they tell about tonight, and will anyone believe them?", "216": "The first light of day spills into the store. Two of you survived. The store has never been this quiet, and some of those rules you will never forget.", "217": "The first light of day spills into the store. Three of your crew made it. One empty spot nobody dares to look at, but the rest are still here, and so are you.", "218": "The first light of day spills into the store. All four of your crew are still standing and nobody was lost. The store is safe tonight... at least until the next night shift.", "219": "6:00 AM", "220": "NIGHT SHIFT RULES · THE FINAL SHIFT", "221": "Ten thousand a night may not be worth what you saw tonight. But who will take the next shift?", "222": "Who made it to morning", "223": "Thank you for surviving the night shift with us", "224": "An unofficial fan-made game, not affiliated with Viu or the series' creators. All characters, ghosts, pixel art and sounds are original.", "225": "Created by napmeks (@nmeksobh) · built with Claude", "226": "📣 Share my result", "227": "Play again", "228": "See the ending →", "229": "I survived all 5 nights as the night-shift manager! ", "230": "/4 crew made it to 6 AM 🌅 Can you? #NightShiftRules ", "231": "Copied, ready to post", "232": "☠ Survivor Mode", "233": "For veterans · no ending, harder every night, until your whole crew is gone", "234": "Best score: ", "235": "☠ SURVIVOR · Night ", "236": "Total pay ", "237": " · up to ", "238": " attacks at once · countdown per attack about ", "239": " s", "240": "☠ Night ", "241": "Survivor Mode: all rules from night one. Ghosts get faster and more numerous every night.", "242": "6 AM — Wages paid", "243": "Night ", "244": " cleared · ", "245": " survivors × ฿10,000 = ", "246": "Pay tonight", "247": "Total pay", "248": "Crew left", "249": "Next night (harder) →", "250": "Cash out & quit", "251": "Game over — the whole crew is gone", "252": "Shift over — you cashed out", "253": "Long-press the image to save it, or use the buttons below", "254": "💾 Save image", "255": "📣 Share", "256": "☠ Play again", "257": "Saved", "258": "Could not save automatically — long-press the image to save it", "259": "Copied, ready to post", "260": "Night Shift Rules", "261": "Wages earned by the crew", "262": "Nights survived", "263": "Staff-nights survived", "264": "Unofficial fan game · inspired by The Rules (Viu)", "265": "Fired on night one", "266": "Trainee Manager", "267": "Night-Shift Regular", "268": "Rulebook Master", "269": "Midnight Legend", "270": "The Manager Even Ghosts Respect", "271": "I survived ", "272": " nights in Survivor Mode — my crew earned ฿", "273": " — can you beat it? #NightShiftRules ", "274": "🚨 Emergency red light", "275": "🚨 Cashier empty! ", "276": "💙 Blue light · ", "277": "🏪 ", "278": " branches opened"};
+var ENH={"0": "Night Shift Rules", "1": "You are <b id=\"mgrName\"></b>, manager of a 24-hour convenience store, watching the CCTV from the control room — your staff are about to break the store's \"rules\" one by one, and something is waiting to take them.", "2": "How to play", "3": "▶ New game", "4": "A rules-of-horror prototype · characters, ghosts and pixel art are all original · sound recommended", "5": "Tonight's rulebook", "6": "Tonight's crew", "7": "← Back", "8": "Enter the control room · Midnight", "9": "Watch the 4 cams. When something is wrong, the bar under it slowly fills up (green → red).", "10": "<b>Tap the cam</b>, then press the <b>tool</b> from the rulebook 📖 — <b>a wrong press and that staff member is taken</b>.", "11": "Staff vanished or screen black? <b>Press the Bell</b> to call someone over. Red light = stronger ghosts. 💙 Blue light: once per night.", "12": "Survive until <b>6 AM</b> for 5 nights. Anyone taken won't come back.", "15": "Not for first-time players", "16": "Survivor Mode gets harder every night and never ends. We recommend finishing all 5 nights of the normal mode first, so you know the rules and enjoy it more.", "17": "← Back", "18": "Bring it on ☠"};
+function L(n,th){if(LANG==='en'){var v=EN[n];if(v!==undefined)return v;}return th;}
+var MANAGER=L(0,'พี่โชติ');           // เปลี่ยนชื่อผู้จัดการได้ตรงนี้
+var NIGHT_LEN=180;               // วินาทีจริงต่อ 1 คืน (เที่ยงคืน → 6 โมงเช้า)
+var HOUR=NIGHT_LEN/6;            // 1 ชั่วโมงในเกม
+var CASH_MIN=15;                 // แคชเชียร์ว่างได้ไม่เกินกี่นาทีในเกม
+var BLUE_MIN=15;                 // ไฟสีฟ้า: กี่นาทีในเกม
+var BLUE_SEC=BLUE_MIN/360*NIGHT_LEN;
+var CASH_SEC=CASH_MIN/360*NIGHT_LEN;
+var W=80,H=80,DH=64;             // 10x10 ทายล์ 8px ห้องออกแบบที่ 80x64 แล้วเลื่อนลง 16px
+
+function $(s){return document.querySelector(s);}
+function rand(a,b){return a+Math.random()*(b-a);}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function pad(n){return (n<10?'0':'')+n;}
+function fmtHour(h){var m=Math.round(h*60),hh=Math.floor(m/60),mm=m%60;return (hh===0?12:hh)+':'+pad(mm)+' AM';}
+
+/* ---------- DATA ---------- */
+var STATIONS,STAFF,TOOLS,ANOM,ALL,NIGHTS,TOOL_ORDER;
+function buildData(){
+MANAGER=L(0,'พี่โชติ');
+STATIONS=[
+  {cam:'CAM1',name:L(1,'แคชเชียร์')},
+  {cam:'CAM2',name:L(2,'ชั้นสินค้า')},
+  {cam:'CAM3',name:L(3,'ตู้แช่')},
+  {cam:'CAM4',name:L(4,'ห้องสต็อก')}
+];
+STAFF=[
+  /* ตัวละครอิงจากซีรีส์ (เปลี่ยนชื่อ): CAM1 ชูการ์ · CAM2 เดียร์ · CAM3 เด่น · CAM4 เมธา  |  trait สูง = ผีทำสำเร็จเร็วขึ้น */
+  {name:L(18,'น้องน้ำตาล'),g:'f',color:'#7ae0a0',hair:'#6a4328',long:true,desc:L(19,'ร่าเริง เป็นแสงสว่างของร้าน แต่เพิ่งย้ายมากะดึก'),trait:1.1,
+   idle:[L(20,'กะกลางวันสนุกกว่านี้เยอะเลยค่ะ'),L(21,'ยิ้มไว้นะคะ ลูกค้าชอบคนยิ้ม'),L(22,'เมื่อกี้... มีใครยืนอยู่ตรงนั้นไหมคะ'),L(23,'ยินดีต้อนรับค่า~ ...ใช่ไหมนะ')]},
+  {name:L(5,'น้องกวาง'),g:'f',color:'#ff7aa8',hair:'#1a1214',long:true,desc:L(6,'อายุ 25 ใจสู้ ระวังตัวสูง ตามหาพี่ชายที่หายไปจากร้าน'),trait:0.9,
+   idle:[L(7,'ไม่กลัวเหรอคะ ที่มาทำงานที่นี่'),L(8,'เคยเห็นอะไรแปลก ๆ แถวนี้ไหมคะ'),L(9,'ท่องกฎไว้นะคะ อย่าลืมแม้แต่ข้อเดียว'),L(10,'หนูต้องรู้ให้ได้ว่าพี่ชายหายไปไหน')]},
+  {name:L(24,'พี่เก่ง'),  g:'m',color:'#ff8a3a',hair:'#3a2a22',glasses:true,desc:L(25,'พี่ชายของน้องกวาง เคยหายตัวไป ขวัญอ่อน กลัวตู้แช่'),trait:1.1,
+   idle:[L(26,'ได้ยินอะไรไหมครับ...'),L(27,'ตู้แช่ตัวนั้น อย่าเข้าใกล้นะครับ'),L(28,'ผมห่วงน้องสาวมากเลย'),L(29,'ร้านนี้มีความลับ ผมรู้สึกได้ครับ')]},
+  {name:L(11,'นายเมฆ'),  g:'m',color:'#ffd24a',hair:'#101018',desc:L(12,'พ่อเลี้ยงเดี่ยว อดีตตำรวจ ใจเย็น ระวังตัว แบกหนี้และห่วงลูกสาว'),trait:0.95,
+   idle:[L(13,'ที่นี่มันอะไรกันแน่ครับ'),L(14,'คืนละหมื่น... จะได้เงินจริงไหมนะ'),L(15,'ลูกสาวคงหลับแล้ว ผมต้องรอดกลับไปให้ได้'),L(16,'ถูกเรียกชื่อก็ห้ามตอบ ท่องไว้ ๆ'),MANAGER+L(17,'ดูกล้องอยู่หรือเปล่าครับ')]}
+];
+TOOLS={
+  bell:   {icon:'🔔',name:L(30,'กระดิ่ง')},
+  staff:  {icon:'🧑‍💼',name:L(31,'พนักงาน')},
+  radio:  {icon:'📻',name:L(32,'วิทยุ')},
+  light:  {icon:'💡',name:L(33,'ปิดไฟ')},
+  lock:   {icon:'🔒',name:L(34,'ล็อกกลอน')},
+  incense:{icon:'🕯️',name:L(35,'ธูป')}
+};
+TOOL_ORDER=['bell','staff','radio','light','lock','incense'];
+ANOM={
+  ghostCust:{st:0,tools:['staff'],short:L(36,'ลูกค้าไร้เงา'),title:L(37,'ลูกค้าที่ไม่มีเงา'),
+    rule:L(38,'ห้ามทอนเงินหรือคุยกับลูกค้าไร้เงา'),
+    lore:L(39,'ทักทายตามปกติ แล้วเขาจะเดินออกไป'),
+    done:L(40,'“ยินดีต้อนรับ{k}”'),
+    cap1:L(41,'“สวัสดี{k}... รับอะไรดี{q}”'),cap2:L(42,'“ทอนเงินให้ก่อนดีกว่านะ{q}...”')},
+  shelf:{st:1,tools:['radio'],short:L(43,'เสียงเด็ก'),title:L(44,'เสียงเด็กเรียกจากชั้นวาง'),
+    rule:L(45,'ห้ามขานรับเสียงเด็กเรียกจากชั้นวางของ'),
+    lore:L(46,'เปิดวิทยุกลบเสียง'),
+    smudge:L(47,'▒▒▒ เสียงดัง ▒▒▒ กลบ ▒▒▒'),
+    cap1:L(48,'“...พี่ขา... พี่ขา...”'),cap2:L(49,'“อยู่ไหนจ๊ะ หนูออกมาสิ”')},
+  freezer:{st:2,tools:['light'],short:L(50,'เงาในตู้แช่'),title:L(51,'เงาในกระจกตู้แช่'),
+    rule:L(52,'ห้ามมองเงาในตู้แช่ที่ไม่ใช่ของตัวเอง'),
+    lore:L(53,'ปิดไฟตู้แช่ เงาจะหายไป'),
+    smudge:L(54,'ปิด▒▒▒ ตู้แช่ ▒▒▒ เงา▒▒▒'),
+    cap1:L(55,'“ในกระจก... มีอีกคนยืนอยู่หลัง{me}”'),cap2:L(56,'“หันไปดูหน่อยดีกว่า...”')},
+  stock:{st:3,tools:['lock'],short:L(57,'เสียงเคาะ'),title:L(58,'เสียงเคาะห้องสต็อก'),
+    rule:L(59,'ห้ามเปิดห้องสต็อกเมื่อได้ยินเสียงเคาะ 3 ครั้ง'),
+    lore:L(60,'ล็อกประตูจนเสียงเคาะหยุด'),
+    smudge:L(61,'▒▒▒ ล็อก▒▒▒ กลอน ▒▒▒ หยุด'),
+    cap1:L(62,'*ก๊อก... ก๊อก... ก๊อก...*'),cap2:L(63,'“ใครอยู่ข้างใน เปิดให้หน่อย...”')},
+  phone:{st:-1,tools:['staff'],short:L(64,'มือถือดัง'),title:L(65,'โทรศัพท์มือถือของพนักงานดัง'),
+    rule:L(66,'ห้ามรับโทรศัพท์มือถือระหว่างทำงาน (เกิดได้ทุกกล้อง)'),
+    lore:L(67,'เตือนพนักงานไม่ให้รับสาย'),
+    done:L(68,'“ห้ามรับโทรศัพท์ระหว่างทำงาน{k}”'),
+    cap1:L(69,'*บรื้ด... บรื้ด...* “มือถือสั่น ใครโทรมานะ”'),cap2:L(70,'“รับสายแป๊บเดียวก็ได้มั้ง...”')},
+  doll:{st:1,tools:['incense'],short:L(71,'ตุ๊กตาหันมอง'),title:L(72,'ตุ๊กตาบนชั้นวางหันมามอง'),
+    rule:L(73,'ห้ามสบตาตุ๊กตาที่หันหน้ามามอง'),
+    lore:L(74,'จุดธูป ตุ๊กตาจะนิ่ง'),
+    smudge:L(75,'▒▒▒ เกลือ ▒▒▒ รอบชั้น ▒▒▒'),
+    cap1:L(76,'“ตุ๊กตาตัวนั้น... เมื่อกี้หันไปอีกทางไม่ใช่เหรอ”'),cap2:L(77,'“ลองมองตาเขาหน่อยดีกว่า...”')},
+  handprint:{st:2,tools:['lock','light'],dm:1.3,short:L(78,'มือทาบกระจก'),title:L(79,'มือทาบกระจกตู้แช่จากด้านใน'),
+    rule:L(80,'ห้ามเปิดตู้แช่เมื่อมีรอยมือทาบจากข้างใน'),
+    lore:L(81,'ล็อกตู้ก่อน แล้วปิดไฟตู้ (ตามลำดับ)'),
+    smudge:L(82,'ล็อก▒▒▒ ก่อน แล้ว▒▒▒ ไฟ ▒▒▒'),
+    cap1:L(83,'“มีมือทาบกระจก... เหมือนอยากให้เปิดให้”'),cap2:L(84,'“เปิดให้หน่อยดีกว่า เดี๋ยวเขาหนาว...”')},
+  food:{st:0,tools:['staff','lock'],dm:1.3,short:L(85,'อาหารลอย'),title:L(86,'อาหารลอยกลางอากาศรออุ่นไมโครเวฟ'),
+    rule:L(87,'ห้ามอุ่นอาหารที่ลอยอยู่หน้าไมโครเวฟ'),
+    lore:L(88,'ให้พนักงานรอซักครู่ แล้วล็อกไมโครเวฟ (ตามลำดับ)'),
+    s1:L(89,'“รออุ่นอาหาร ซักครู่{k}”'),
+    cap1:L(90,'“มีกล่องข้าวลอยอยู่... อุ่นให้เลยดีไหม”'),cap2:L(91,'“ใส่ไมโครเวฟแป๊บเดียวเอง...”')},
+  delivery:{st:3,good:true,tools:['light'],short:L(92,'พนักงานส่งของ'),title:L(93,'พนักงานส่งของมาส่งที่ห้องสต็อก'),
+    rule:L(94,'พนักงานส่งของ (คนปกติ) มาที่ห้องสต็อก'),
+    lore:L(95,'กดไฟ พนักงานจะบอกให้วางของไว้ตรงนี้'),
+    extra:L(96,'กดผิด ไฟแดงติด 30 นาที แต่ไม่มีใครตาย'),
+    done:L(97,'“วางไว้ตรงนี้เลย{k}”'),
+    cap1:L(98,'📦 พนักงานส่งของมาถึงแล้ว'),cap2:L(99,'📦 พนักงานส่งของรออยู่')},
+  whisper:{st:3,tools:['radio','incense'],dm:1.3,short:L(100,'เสียงกระซิบ'),title:L(101,'เสียงกระซิบเรียกชื่อจากห้องสต็อก'),
+    rule:L(102,'ห้ามขานรับเสียงเรียกชื่อจากห้องสต็อก'),
+    lore:L(103,'เปิดวิทยุกลบเสียง แล้วจุดธูป (ตามลำดับ)'),
+    smudge:L(104,'▒▒▒ วิทยุ ▒▒▒ แล้ว ▒▒▒ ธูป'),
+    cap1:L(105,'“ใครเรียกชื่อเราอยู่นะ...”'),cap2:L(106,'“ขานรับนิดเดียวไม่เป็นไรมั้ง...”')}
+};
+ALL=['ghostCust','shelf','freezer','stock','phone','doll','delivery','handprint','food','whisper'];
+/* red = [[ชั่วโมงเริ่ม, ความยาวชั่วโมง], ...]   vanish = ความถี่ที่พนักงานหายไปจากกล้อง (วินาที) */
+NIGHTS=[
+  {n:1,types:['ghostCust','shelf','freezer','stock'],interval:14,dur:16,cap:2,smudged:[],vanish:null,red:[],
+   sub:L(107,'คืนแรก ทุกกล้องมีกฎข้อเดียว ไฟสว่าง ร้านยังเงียบ... แต่ไม่นาน')},
+  {n:2,types:['ghostCust','shelf','freezer','stock','phone'],interval:12.5,dur:14,cap:2,smudged:[],
+   vanish:{every:[26,34],dur:[12,16]},red:[[2,1]],
+   sub:L(108,'มือถือของพนักงานเริ่มดัง พนักงานเริ่มหายไปจากกล้อง และไฟแดงฉุกเฉินติดขึ้นครั้งแรก')},
+  {n:3,types:['ghostCust','shelf','freezer','stock','phone','doll','delivery'],interval:11,dur:12.5,cap:2,smudged:[],
+   vanish:{every:[22,30],dur:[12,16]},red:[[1.5,1.5]],
+   sub:L(109,'ตุ๊กตาบนชั้นวางเริ่มหันมามอง ไฟแดงจะติดนานขึ้น และพนักงานส่งของคนแรกมาถึงห้องสต็อก')},
+  {n:4,types:['ghostCust','shelf','freezer','stock','phone','doll','delivery','handprint','food'],interval:9.5,dur:11,cap:3,smudged:[],
+   vanish:{every:[18,26],dur:[12,16]},red:[[1,1],[3.5,1.5]],
+   sub:L(110,'กฎเริ่มซับซ้อน อาหารลอยหน้าไมโครเวฟ บางข้อต้องทำสองขั้นตอนตามลำดับ และไฟแดงติดสองรอบ')},
+  {n:5,types:ALL,interval:8.5,dur:10,cap:3,smudged:[],
+   vanish:{every:[15,22],dur:[12,16]},red:[[1,1],[3,2]],
+   sub:L(111,'คืนสุดท้าย เสียงกระซิบจากห้องสต็อก ไฟแดงติดนานที่สุด ผีไม่ปล่อยใครรอดง่าย ๆ')}
+];
+
+NIGHTS[0].delivery=NIGHTS[1].delivery=null;NIGHTS[2].delivery={every:[38,52]};NIGHTS[3].delivery={every:[34,46]};NIGHTS[4].delivery={every:[30,42]};
+NIGHTS.forEach(function(n){n.interval*=0.85;if(n.vanish)n.vanish.every=[n.vanish.every[0]*0.85,n.vanish.every[1]*0.85];});
+}
+buildData();
+
+/* ---------- STATE ---------- */
+var G=null,curNight=0,roster=[true,true,true,true];
+var MODE='camp',sur=null,PAY=10000;
+var raf=0,lastTs=0,running=false;
+
+function loadSave(){
+  try{
+    var o=JSON.parse(localStorage.getItem('kumkot_v2_save')||'null');
+    if(o&&typeof o.night==='number'&&Array.isArray(o.roster)&&o.roster.length===4)return {night:clamp(o.night|0,0,4),roster:o.roster.map(Boolean)};
+  }catch(e){}
+  return null;
+}
+function writeSave(o){try{if(o)localStorage.setItem('kumkot_v2_save',JSON.stringify(o));else localStorage.removeItem('kumkot_v2_save');}catch(e){}}
+function aliveCount(r){return r.filter(Boolean).length;}
+
+/* ---------- AUDIO ---------- */
+var AC=null,master=null,muted=false;
+function initAudio(){
+  if(AC){if(AC.state==='suspended'){try{AC.resume();}catch(e){}}return;}
+  try{
+    var Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx)return;
+    AC=new Ctx(); master=AC.createGain(); master.gain.value=muted?0:0.6; master.connect(AC.destination);
+    var o=AC.createOscillator(); o.type='sawtooth'; o.frequency.value=46;
+    var f=AC.createBiquadFilter(); f.type='lowpass'; f.frequency.value=150;
+    var g=AC.createGain(); g.gain.value=0.05;
+    o.connect(f); f.connect(g); g.connect(master); o.start();
+  }catch(e){AC=null;}
+}
+function tone(freq,dur,type,vol,slideTo){
+  if(!AC)return;
+  try{
+    var t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();
+    o.type=type||'square'; o.frequency.setValueAtTime(freq,t);
+    if(slideTo)o.frequency.exponentialRampToValueAtTime(slideTo,t+dur);
+    g.gain.setValueAtTime(vol||0.15,t); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t+dur+0.03);
+  }catch(e){}
+}
+function noise(dur,vol){
+  if(!AC)return;
+  try{
+    var n=Math.floor(AC.sampleRate*dur),b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);
+    for(var i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+    var s=AC.createBufferSource(),g=AC.createGain(); s.buffer=b; g.gain.value=vol||0.3;
+    s.connect(g); g.connect(master); s.start();
+  }catch(e){}
+}
+var sfx={
+  click:function(){tone(660,.05,'square',.05);},
+  spawn:function(){tone(220,.12,'square',.08);setTimeout(function(){tone(165,.2,'square',.08,110);},120);},
+  good:function(){tone(784,.08,'square',.09);setTimeout(function(){tone(1047,.14,'square',.09);},90);},
+  bad:function(){tone(180,.22,'square',.1,80);},
+  ring:function(){tone(1250,.06,'square',.06);setTimeout(function(){tone(1250,.06,'square',.06);},110);},
+  beat:function(){tone(70,.14,'triangle',.4);setTimeout(function(){tone(55,.14,'triangle',.35);},170);},
+  siren:function(){tone(620,.4,'sawtooth',.06,880);setTimeout(function(){tone(880,.4,'sawtooth',.06,620);},420);},
+  vanish:function(){noise(.25,.12);tone(300,.35,'triangle',.1,90);},
+  blue:function(){[523,659,784,988].forEach(function(f,i){setTimeout(function(){tone(f,.28,'triangle',.12);},i*110);});},
+  death:function(){noise(.7,.5);tone(420,.9,'sawtooth',.18,40);},
+  scare:function(){noise(1.2,.6);tone(900,1.2,'sawtooth',.22,60);tone(120,1.4,'square',.18,30);},
+  deliv:function(){tone(880,.18,'sine',.1);setTimeout(function(){tone(660,.35,'sine',.1);},200);},
+  /* กระดิ่งประตูมินิมาร์ท: ประตูเอี๊ยด → ติ๊งน็อง (คู่ลดครึ่งเสียง ฟังแล้วขนลุก) → ดรอนต่ำค่อย ๆ ดังขึ้น */
+  chime:function(){
+    tone(95,.55,'sawtooth',.05,170);tone(140,.5,'triangle',.03,230);
+    setTimeout(function(){noise(.12,.08);},430);
+    function bell(f,d,v){tone(f,d,'sine',v);tone(f*2.76,d*.6,'sine',v*.35);tone(f*5.4,d*.3,'sine',v*.15);tone(f*1.005,d,'sine',v*.5);}
+    setTimeout(function(){bell(1319,1.6,.13);},560);
+    setTimeout(function(){bell(932,2.4,.13);},1000);
+    setTimeout(function(){tone(55,2.6,'triangle',.28,38);},1500);
+  },
+  win:function(){[523,659,784,1047].forEach(function(f,i){setTimeout(function(){tone(f,.2,'square',.1);},i*140);});}
+};
+function setMute(m){
+  muted=m; if(master)master.gain.value=m?0:0.6;
+  $('#btnMute').textContent=m?'🔇':'🔊'; $('#btnMute0').textContent=m?'🔇':'🔊';
+}
+
+/* ---------- PIXEL ART ---------- */
+var OUT='#0a0d18';
+function mk(w,h){var cv=document.createElement('canvas');cv.width=w;cv.height=h;return cv;}
+function R(c,x,y,w,h,col){c.fillStyle=col;c.fillRect(Math.floor(x),Math.floor(y),w,h);}
+function box(c,x,y,w,h,f,hi,sh){
+  R(c,x,y,w,h,OUT);R(c,x+1,y+1,w-2,h-2,f);
+  R(c,x+1,y+1,w-2,1,hi);R(c,x+1,y+1,1,h-2,hi);
+  R(c,x+1,y+h-2,w-2,1,sh);R(c,x+w-2,y+1,1,h-2,sh);
+}
+/* sprite 16x16: k=เส้นขอบ h=ผม s=ผิว e=ตา B=ลายฟ้า W=ลายขาว n=ป้ายชื่อ d=กางเกง */
+var BODY=[
+'.....kkkkkk.....',
+'....khhhhhhk....',
+'...khhhhhhhhk...',
+'...khhhhhhhhk...',
+'...kssssssssk...',
+'...ksessssesk...',
+'...kssssssssk...',
+'....kssssssk....',
+'...kkBBBBBBkk...',
+'..kWWWWWWWWWWk..',
+'..kBBBBBBBnBBk..',
+'..kssWWWWWWssk..',
+'...kBBBBBBBBk...',
+'...kWWWWWWWWk...',
+'...kddkkkkddk...',
+'...kkk....kkk...'];
+var ICONS={
+ bell:['...yy...','..yyyy..','.yyoyyy.','.yyoyyy.','.yyoyyy.','yyyyyyyy','........','...oo...'],
+ incense:['..g..g..','...g..g.','..g..g..','...oo...','...rr...','...rr...','..bbbb..','..bbbb..'],
+ light:['..yyyy..','.yywyyy.','.yywyyy.','.yyyyyy.','..yyyy..','..gggg..','..gggg..','...gg...'],
+ radio:['......g.','.....g..','bbbbbbbb','bddbbyyb','bddbbyyb','bddbbbbb','bbbbbbbb','........'],
+ lock:['..gggg..','.g....g.','.g....g.','yyyyyyyy','yyyyyyyy','yyykkyyy','yyykkyyy','yyyyyyyy'],
+ staff:['..vvvv..','.vuuuuv.','..ssss..','.sdssds.','.nunnun.','nnuuuunn','nnuunuun','.vvvvvv.']
+};
+var ICON_PAL={s:'#f0c8a0',n:'#f6f6f6',y:'#f0c040',o:'#b8861a',w:'#fff6c0',g:'#a8b0c0',r:'#d84030',b:'#6a80a8',d:'#1c2438',k:'#201808',u:'#3b82f6',v:'#1d4ed8'};
+var SPR={},ICO={};
+function sprite(key,rows,pal){
+  if(SPR[key])return SPR[key];
+  var cv=mk(rows[0].length,rows.length),c=cv.getContext('2d');
+  for(var y=0;y<rows.length;y++)for(var x=0;x<rows[y].length;x++){
+    var ch=rows[y].charAt(x);
+    if(ch!=='.'&&pal[ch]){R(c,x,y,1,1,pal[ch]);}
+  }
+  SPR[key]=cv;return cv;
+}
+function staffSpr(i){
+  var key='st'+i;
+  if(SPR[key])return SPR[key];
+  var st=STAFF[i];
+  var cv=sprite(key,BODY,{k:OUT,h:st.hair,s:'#f0c8a0',e:'#101018',B:'#2f6fd0',W:'#eef3ff',n:st.color,d:'#262f4c'}),c=cv.getContext('2d');
+  if(st.long){for(var y=4;y<=8;y++){R(c,2,y,1,1,st.hair);R(c,13,y,1,1,st.hair);R(c,1,y,1,1,OUT);R(c,14,y,1,1,OUT);}}
+  if(st.glasses){
+    var gl='#f4f4ff';
+    [4,9].forEach(function(x0){R(c,x0,4,3,1,gl);R(c,x0,6,3,1,gl);R(c,x0,5,1,1,gl);R(c,x0+2,5,1,1,gl);});
+    R(c,7,5,2,1,gl);
+  }
+  return cv;
+}
+function courierSpr(){return sprite('courier',BODY,{k:OUT,h:'#2a1a12',s:'#e8c098',e:'#101018',B:'#d7762a',W:'#f2e6d0',n:'#d7762a',d:'#3a3a48'});}
+function ghostSpr(){return sprite('ghost',BODY,{k:'#1a2024',h:'#aeb8bc',s:'#eef3f4',e:'#000',B:'#c8d2d8',W:'#e8eef0',n:'#c8d2d8',d:'#8c969a'});}
+function darkSpr(){return sprite('dark',BODY,{k:'#000',h:'#06070c',s:'#06070c',e:'#fff',B:'#06070c',W:'#06070c',n:'#06070c',d:'#06070c'});}
+function iconCanvas(key){
+  if(ICO[key])return ICO[key];
+  var rows=ICONS[key],cv=mk(8,8),c=cv.getContext('2d');
+  for(var y=0;y<8;y++)for(var x=0;x<8;x++){var ch=rows[y].charAt(x);if(ch!=='.'&&ICON_PAL[ch])R(c,x,y,1,1,ICON_PAL[ch]);}
+  ICO[key]=cv;return cv;
+}
+function iconImg(key){
+  var url='';
+  try{url=iconCanvas(key).toDataURL();}catch(e){url='';}
+  return url?'<img class="ico" src="'+url+'" alt="">':TOOLS[key].icon;
+}
+function checkSprites(){
+  var bad=[];BODY.forEach(function(r,i){if(r.length!==16)bad.push('BODY'+i+':'+r.length);});
+  if(BODY.length!==16)bad.push('BODYrows:'+BODY.length);
+  Object.keys(ICONS).forEach(function(k){ICONS[k].forEach(function(r,i){if(r.length!==8)bad.push(k+i+':'+r.length);});if(ICONS[k].length!==8)bad.push(k+'rows');});
+  return bad;
+}
+function drawSpr(c,spr,x,y,a){
+  if(a!=null&&a<1){c.globalAlpha=a;}
+  c.drawImage(spr,Math.floor(x),Math.floor(y));
+  c.globalAlpha=1;
+}
+function blob(c,x,y,w){R(c,x,y,w,2,'rgba(0,0,0,.4)');R(c,x+1,y+2,w-2,1,'rgba(0,0,0,.25)');}
+function ghostHoles(c,x,y){R(c,x+4,y+4,2,3,'#000');R(c,x+10,y+4,2,3,'#000');R(c,x+7,y+9,2,2,'#000');}
+function eyes(c,x,y,blink){
+  if(blink)return;
+  R(c,x-3,y,2,2,'#fff');R(c,x+1,y,2,2,'#fff');R(c,x-2,y+1,1,1,'#000');R(c,x+2,y+1,1,1,'#000');
+}
+/* ธีมร้าน: ลายขาว-ฟ้า (ปรับให้มืดลงตามบรรยากาศสยองขวัญ) */
+var MB='#1a3a74',MW='#6f84ab';
+function wallTiles(c,h){
+  R(c,0,-16,W,h+16,MB);
+  for(var x=0;x<W;x+=16)R(c,x,-16,8,h+13,MW);
+  R(c,0,h-3,W,3,'#0e1628');R(c,0,h-3,W,1,'#3a4a6c');
+}
+function floorTiles(c,y0){
+  for(var ty=y0;ty<DH;ty+=8)for(var tx=0;tx<W;tx+=8){
+    R(c,tx,ty,8,8,(((tx+ty)>>3)%2)?'#566892':'#46567c');
+    R(c,tx,ty,8,1,'rgba(0,0,0,.2)');R(c,tx,ty,1,8,'rgba(0,0,0,.12)');
+  }
+}
+function stripeBar(c,x,y,w,h,step){
+  for(var i=0;i<w;i+=step){R(c,x+i,y,Math.min(step,w-i),h,((i/step)&1)?'#e4ecfa':'#2f6fd0');}
+}
+var VIG=null;
+function vignette(){
+  if(VIG)return VIG;
+  var cv=mk(W,H),c=cv.getContext('2d');
+  var Bm=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
+  for(var y=0;y<H;y++)for(var x=0;x<W;x++){
+    var dx=(x-W/2)/(W/2),dy=(y-H/2)/(H/2),d=Math.sqrt(dx*dx*.8+dy*dy);
+    var v=(d-0.82)*2.6;
+    if(v>Bm[y&3][x&3]/16)R(c,x,y,1,1,'rgba(0,0,0,.6)');
+  }
+  VIG=cv;return cv;
+}
+
+/* --- ฉาก 4 ห้อง (80x64) : present = พนักงานอยู่ในกล้อง --- */
+function sceneCashier(c,t,A,sid){
+  wallTiles(c,24);floorTiles(c,24);
+  box(c,22,3,54,19,'#2c3d58','#425c82','#1a2640');
+  var pc=['#b0364a','#3a80b4','#d0aa3a','#4aa266'];
+  for(var k=0;k<8;k++){R(c,25+k*6,5,5,6,pc[k%4]);R(c,25+k*6,13,5,6,pc[(k+2)%4]);}
+  box(c,5,4,13,13,'#ddd8bc','#fff','#9a9478');R(c,11,6,1,6,OUT);R(c,11,11,3,1,OUT);
+  var bob=Math.floor(t*1.3)%2;
+  if(sid>=0)drawSpr(c,staffSpr(sid),32,14+bob);
+  box(c,2,26,76,14,'#2d5ba8','#4a7ccc','#183868');
+  for(var sx=4;sx<74;sx+=8)R(c,sx,31,4,7,'#dfe8f8');
+  R(c,3,27,74,1,'#e8f0ff');
+  box(c,54,19,15,9,'#2a2f3c','#4a546c','#14181f');R(c,57,21,7,3,'#5be6c6');
+  var fd=A&&A.type==='food';
+  box(c,5,17,17,10,'#3a4258','#586080','#1c2234');
+  R(c,7,19,9,6,fd?'#e8c040':'#0e1424');
+  if(fd)R(c,9,21,5,2,'#fff6c0');
+  R(c,17,19,3,6,'#262c3c');R(c,18,20,1,1,fd?'#5be6c6':'#586080');R(c,18,22,1,1,'#586080');R(c,18,24,1,1,'#586080');
+  if(fd){
+    var fx=22+Math.round(Math.sin(t*2)*2),fy=6+Math.round(Math.sin(t*3)*2);
+    R(c,fx-1,fy-1,12,8,OUT);R(c,fx,fy,10,6,'#e8eef8');R(c,fx,fy+2,10,2,'#2f6fd0');R(c,fx+2,fy,2,1,'#c8d6ee');
+    for(var q=0;q<3;q++)R(c,fx+1+q*3,fy+7+((t*6+q*2)%5),1,1,'rgba(240,220,120,.7)');
+  }
+  if(A&&A.type==='ghostCust'){
+    var j=Math.random()<.12?Math.floor(rand(-2,3)):0;
+    drawSpr(c,ghostSpr(),10+j,41+bob,.9);ghostHoles(c,10+j,41+bob);
+    if(Math.random()<.2)R(c,0,Math.floor(rand(30,62)),W,1,'rgba(200,255,255,.35)');
+  }
+}
+function sceneShelf(c,t,A,sid){
+  wallTiles(c,16);floorTiles(c,16);
+  var pal=['#b0364a','#3a80b4','#d0aa3a','#4aa266','#8a4aa8'];
+  for(var u=0;u<2;u++){
+    var x0=2+u*46;
+    box(c,x0,5,30,46,'#2f4f86','#4a72b0','#162a50');
+    for(var r=0;r<4;r++){
+      var y=8+r*11;
+      R(c,x0+2,y+8,26,2,'#162a50');
+      for(var k=0;k<5;k++){R(c,x0+3+k*5,y+2+(k%2),4,6-(k%2),pal[(k+r+u)%5]);}
+    }
+  }
+  if(A&&A.type==='doll'){
+    var dd=21+Math.floor(Math.sin(t*1.5)*1);
+    R(c,dd-1,14,8,8,OUT);R(c,dd,15,6,6,'#f2e0cc');
+    if(Math.floor(t*2)%5!==0){R(c,dd+1,17,1,2,'#e02030');R(c,dd+4,17,1,2,'#e02030');}
+    R(c,dd-1,21,8,7,OUT);R(c,dd,21,6,6,'#b03a4a');
+  }
+  if(A&&A.type==='shelf'){
+    R(c,5,38,24,11,'#03040a');
+    eyes(c,17,43,Math.floor(t*1.4)%5===0);
+    R(c,9+Math.floor(Math.sin(t*3)*1.5),47,3,2,'#e4eaec');
+  }
+  var bob=Math.floor(t*1.1)%2;
+  if(sid>=0){blob(c,32,58,16);drawSpr(c,staffSpr(sid),32,42+bob);}
+}
+function hand(c,x,y){
+  var k='#dfe8ea';
+  R(c,x,y+4,7,6,k);R(c,x,y,1,5,k);R(c,x+2,y-1,1,6,k);R(c,x+4,y,1,5,k);R(c,x+6,y+1,1,4,k);R(c,x-2,y+6,3,2,k);
+}
+function sceneFreezer(c,t,A,sid){
+  wallTiles(c,32);floorTiles(c,32);
+  box(c,2,2,76,34,'#1a3a6a','#2e62a0','#0e2038');
+  stripeBar(c,4,3,72,2,4);
+  R(c,4,5,72,29,'#1f4a6a');
+  var cans=['#c0392b','#2e86c1','#d4ac0d','#27ae60','#8e44ad'];
+  for(var r=0;r<3;r++){
+    var by=12+r*9;R(c,4,by,72,1,'#3a7a9a');
+    for(var k=0;k<12;k++)R(c,6+k*6,by-7,4,7,cans[(k+r)%5]);
+  }
+  R(c,10,5,2,29,'rgba(190,240,255,.10)');R(c,14,5,1,29,'rgba(190,240,255,.08)');
+  var sx=((t*8)|0)%76;R(c,sx,5,1,29,'rgba(220,250,255,.10)');
+  var bob=Math.floor(t*1.1)%2,fr=A&&A.type==='freezer';
+  if(sid>=0){
+    drawSpr(c,staffSpr(sid),32,16+(fr?(1-bob):bob),.32);
+  }
+  if(fr){
+    var gx=52+Math.floor(Math.sin(t*.8)*2);
+    drawSpr(c,ghostSpr(),gx,15,.55);ghostHoles(c,gx,15);
+  }
+  if(A&&A.type==='handprint'){
+    var hx=20+Math.floor(Math.sin(t*2)*2);hand(c,hx,12);hand(c,hx+34,17+Math.floor(Math.cos(t*2)*2));
+  }
+  if(sid>=0){blob(c,32,56,16);drawSpr(c,staffSpr(sid),32,40+bob);}
+}
+function sceneStock(c,t,A,sid){
+  wallTiles(c,32);floorTiles(c,32);
+  box(c,2,16,18,18,'#8c6c42','#aa8a54','#523c22');R(c,10,16,2,18,'#c8b080');
+  box(c,12,6,16,12,'#7c5e38','#9a7a48','#483418');R(c,19,6,2,12,'#c8b080');
+  box(c,2,2,12,14,'#8c6c42','#aa8a54','#523c22');
+  var st=A&&A.type==='stock';
+  var dx=48+(st?(Math.floor(t*30)%2):0);
+  box(c,dx,4,24,34,'#4c3626','#6a4c34','#2a1c12');
+  R(c,dx+3,7,18,12,'#3e2c1e');R(c,dx+3,22,18,12,'#3e2c1e');
+  R(c,dx+4,21,3,3,'#d0d0b0');
+  if(st){
+    R(c,dx+19,4,5,34,'#000');
+    eyes(c,dx+22,18,Math.floor(t*2)%6===0);
+    if(Math.floor(t*3)%3===0){R(c,dx-4,20,3,5,'#e8ecf4');}
+  }
+  if(A&&A.type==='whisper'){
+    R(c,8,20,7,7,'#000');eyes(c,11,22,Math.floor(t*2)%6===0);
+    for(var w=0;w<4;w++)R(c,26+w*4,32-((t*9+w*5)%16),1,1,'#cfe0ff');
+  }
+  var bob=Math.floor(t*1.2)%2;
+  if(A&&A.type==='delivery'){
+    var cy=40+(Math.floor(t*1.3)%2);
+    blob(c,40,56,16);drawSpr(c,courierSpr(),40,cy);
+    box(c,53,cy+8,10,8,'#8c6c42','#aa8a54','#523c22');R(c,57,cy+8,2,8,'#c8b080');
+  }
+  if(sid>=0){blob(c,22,56,16);drawSpr(c,staffSpr(sid),22,40+bob);}
+}
+var PXY=[[32,14],[32,42],[32,40],[22,40]];
+function drawMobile(c,t,i){
+  var p=PXY[i],sh=Math.floor(t*30)%2,x=p[0]+13+sh,y=p[1]+8,on=(Math.floor(t*6)%2)?'#7ae0ff':'#d8f8ff';
+  R(c,x-1,y-1,6,10,OUT);R(c,x,y,4,8,'#1c2438');R(c,x,y,4,6,on);R(c,x+1,y+7,2,1,'#586080');
+  R(c,x+6,y-3,1,2,'#7ae0ff');R(c,x+8,y-5,1,3,'#7ae0ff');R(c,x-3,y-3,1,2,'#7ae0ff');R(c,x-5,y-5,1,3,'#7ae0ff');
+}
+function sceneDead(c,t){
+  R(c,0,0,W,H,'#08080c');
+  for(var k=0;k<120;k++){var v=Math.floor(Math.random()*110);R(c,Math.random()*W,Math.random()*H,3+Math.floor(Math.random()*4),1,'rgb('+v+','+v+','+(v+10)+')');}
+}
+function finishScene(c,t,danger,red,blue,away){
+  for(var i=0;i<18;i++)R(c,Math.random()*W,Math.random()*H,1,1,'rgba(255,255,255,'+(Math.random()*.12).toFixed(2)+')');
+  c.globalAlpha=1;
+  R(c,0,0,W,H,'rgba(20,40,90,.14)');
+  if(red){R(c,0,0,W,H,'rgba(220,20,40,'+(0.2+0.1*Math.sin(t*5)).toFixed(2)+')');}
+  if(blue){R(c,0,0,W,H,'rgba(100,180,255,.22)');}
+  else{
+    if(danger>.6&&Math.random()<.18)R(c,0,0,W,H,'rgba(160,0,30,.2)');
+    if(danger>.8&&Math.random()<.25)R(c,0,Math.floor(rand(0,H)),W,1,'rgba(255,255,255,.28)');
+  }
+  if(away&&Math.random()<.2)R(c,0,Math.floor(rand(0,H)),W,1,'rgba(255,255,255,.3)');
+  c.drawImage(vignette(),0,0);
+  if(!blue&&danger>.4&&Math.random()<.06)R(c,0,0,W,H,'rgba(0,0,0,.45)');
+}
+function drawGhostFace(c,t,big){
+  R(c,0,0,W,H,'#000');
+  for(var i=0;i<60;i++)R(c,Math.random()*W,Math.random()*H,2,1,'rgba(255,255,255,'+(Math.random()*.18)+')');
+  var j=big?Math.floor(rand(-1,2)):0;
+  for(var h=0;h<10;h++)R(c,18+h*5+j,2,3,52+Math.floor(Math.sin(t*3+h)*3),'#10151c');
+  R(c,26+j,8,28,38,'#dfe8ea');R(c,24+j,14,32,28,'#dfe8ea');R(c,28+j,46,24,4,'#c8d2d6');
+  R(c,30+j,20,7,11,'#000');R(c,44+j,20,7,11,'#000');
+  R(c,33+j,26,2,3,'#fff');R(c,47+j,26,2,3,'#fff');
+  var mh=(big?12:7)+Math.floor(Math.abs(Math.sin(t*9))*3);
+  R(c,36+j,36,9,mh,'#000');
+}
+function drawTitle(id,dawn){
+  var el=$(id||'#titleCv');if(!el||!el.getContext)return;
+  drawStoreOn(el.getContext('2d'),dawn);
+}
+function drawStoreOn(c,dawn){
+  var w=80;
+  var bands=dawn?['#4a3a78','#8a5a86','#d88a78','#f4b878']:['#080b1e','#0b1028','#0e1630','#121c3a'];
+  for(var i=0;i<4;i++)R(c,0,i*9,w,9,bands[i]);
+  if(!dawn){for(var y=0;y<36;y++)for(var x=0;x<w;x++){if(((x*7+y*13)%53)===0)R(c,x,y,1,1,'#aab6e0');}
+  R(c,60,5,8,8,'#e8e4c8');R(c,59,6,10,6,'#e8e4c8');R(c,62,7,2,2,'#c8c4a4');R(c,65,10,2,2,'#c8c4a4');}
+  else{R(c,58,3,12,12,'#ffe58a');R(c,57,5,14,8,'#ffe58a');R(c,60,6,8,6,'#fff6c0');R(c,72,2,1,3,'#ffd070');R(c,54,9,2,1,'#ffd070');R(c,73,9,2,1,'#ffd070');for(var y2=0;y2<30;y2++)for(var x2=0;x2<w;x2++){if(((x2*11+y2*7)%97)===0)R(c,x2,y2,1,1,'#fbe0d0');}}
+  R(c,0,38,w,10,dawn?'#3a3446':'#161a2a');R(c,0,38,w,1,dawn?'#6a5a6a':'#2a3250');
+  box(c,8,14,64,26,'#2c3858','#40507c','#161e38');
+  R(c,10,16,60,8,'#0a0f20');
+  var G3={'2':['111','001','111','100','111'],'4':['101','101','111','001','001'],'H':['101','101','111','101','101']};
+  ['2','4','H'].forEach(function(ch,n){var g=G3[ch];for(var yy=0;yy<5;yy++)for(var xx=0;xx<3;xx++)if(g[yy].charAt(xx)==='1')R(c,26+n*10+xx*2,17+yy,2,1,'#f0d050');});
+  stripeBar(c,10,25,60,3,4);
+  R(c,14,29,22,10,'#e8d890');R(c,14,29,22,1,OUT);R(c,24,29,1,10,'#b8a860');
+  R(c,44,29,14,11,'#10162a');R(c,56,34,1,2,'#d0c070');
+  R(c,62,29,6,10,'#3a5a46');R(c,63,30,4,3,'#5a8a6a');
+  R(c,19,33,6,6,'#05060a');R(c,20,31,4,3,'#05060a');
+  R(c,20,32,1,1,'#fff');R(c,23,32,1,1,'#fff');
+}
+
+/* ---------- DOM REFS ---------- */
+var tiles=[],ctxs=[];
+function buildGameDom(){
+  var grid=$('#grid');
+  for(var i=0;i<4;i++){
+    var d=document.createElement('div'); d.className='tile'; d.setAttribute('data-i',String(i));
+    d.innerHTML='<canvas width="'+W+'" height="'+H+'"></canvas><div class="scan"></div>'+
+      '<div class="tl px"><span>'+STATIONS[i].cam+'</span><span class="rec">●REC</span></div>'+
+      '<div class="cap"></div><div class="nm"></div><div class="bar"><i></i></div>';
+    grid.appendChild(d);
+    var cv=d.querySelector('canvas');
+    tiles.push({el:d,cv:cv,cap:d.querySelector('.cap'),nm:d.querySelector('.nm'),bar:d.querySelector('.bar i'),lastCap:'',lastCls:'',lastNm:'~'});
+    var cx=cv.getContext('2d');cx.imageSmoothingEnabled=false;ctxs.push(cx);
+  }
+  var tb=$('#tools');
+  TOOL_ORDER.forEach(function(k){
+    var b=document.createElement('button'); b.className='btn tool'; b.setAttribute('data-tool',k);
+    var ic=mk(8,8);ic.getContext('2d').drawImage(iconCanvas(k),0,0);
+    b.appendChild(ic);
+    var s1=document.createElement('span');s1.textContent=TOOLS[k].name;b.appendChild(s1);
+    tb.appendChild(b);
+  });
+}
+
+/* ---------- RULEBOOK ---------- */
+function seqOf(a){return (a.need?['bell']:[]).concat(ANOM[a.type].tools);}
+function rulesHTML(cfg,al){
+  var h='';
+  cfg.types.forEach(function(ty,i){
+    var a=ANOM[ty],sm=cfg.smudged.indexOf(ty)>=0;
+    h+=L(112,'<div class="rule"><div class="t">ข้อ ')+(i+1)+' · '+a.title+' <span style="color:#8590ab;font-weight:400">('+camLbl(ty)+')</span></div><div class="r">'+a.rule+(a.extra?' · <b>'+a.extra+'</b>':'')+'</div>'+
+       (sm?L(113,'<div class="f sm">วิธีป้องกัน: ')+a.smudge+'</div>'
+          :'<div class="f">'+(a.good?L(114,'วิธีรับมือ'):L(115,'วิธีแก้'))+': '+a.tools.map(function(k){return iconImg(k)+' <b>'+TOOLS[k].name+'</b>';}).join(' → ')+' — '+a.lore+'</div>')+'</div>';
+  });
+  h+=L(116,'<div class="rule gen"><div class="t">⚠ กดผิด = เสียพนักงานทันที</div><div class="r">แตะกล้อง เช็กสมุดกฎให้ชัวร์ แล้วค่อยกด</div></div>');
+  h+=L(117,'<div class="rule"><div class="t">ข้อพิเศษ · แคชเชียร์ห้ามว่าง <span style="color:#8590ab;font-weight:400">(CAM1)</span></div><div class="r">ห้ามไม่มีคนประจำเกิน <b>15 นาทีในเกม</b> ไม่งั้นผีเอาพนักงานไป 1 คนแบบสุ่ม</div><div class="f">วิธีแก้: กดกระดิ่งที่ CAM1 ตอนจอดำ เรียกคนมาประจำ</div></div>');
+  if(al&&aliveCount(al)<4)h+=L(118,'<div class="rule gen"><div class="t">🚶 กล้องจอดำ — ไม่มีคนประจำ</div><div class="r">ผียังมาได้ ถ้าเห็นผีที่จอดำ <b>กดกระดิ่ง</b> เรียกพนักงานที่ว่างมาประจำ แล้วทำตามกฎข้อนั้น (ลูกค้าไร้เงา: กระดิ่ง → พนักงาน)</div></div>');
+  if(cfg.vanish)h+=L(119,'<div class="rule gen"><div class="t">👀 พนักงานหายจากกล้อง</div><div class="r">ถ้ามีผีมา <b>กดกระดิ่งก่อนเสมอ</b> แล้วทำตามกฎข้อนั้น · ถ้ายังไม่มีผี รอได้ เขาจะกลับมาเอง</div></div>');
+  h+=L(121,'<div class="rule gen"><div class="t">🚨 ไฟแดง = ผีดุขึ้น</div><div class="r">ติดเป็นช่วงๆ และติด 30 นาทีในเกมทุกครั้งที่มีพนักงานตาย</div></div>');
+  h+=L(122,'<div class="rule gen"><div class="t">💙 ไฟสีฟ้า</div><div class="r">กดได้ <b>คืนละ 1 ครั้ง</b> ทุกอย่างกลับเป็นปกติ 15 นาที</div></div>');
+  if(cfg.smudged.length)h+=L(123,'<div class="note">🩸 บางข้อวิธีป้องกันถูกน้ำหก/รอยเลือดทับ อ่านไม่ออก ต้องเดาจากเศษตัวอักษรและข้อที่รู้แล้ว</div>');
+  return h;
+}
+function buildCheat(){
+  if(!G)return;
+  var h='';
+  G.cfg.types.forEach(function(ty){
+    var a=ANOM[ty];
+    var sm=G.cfg.smudged.indexOf(ty)>=0;
+    h+='<span class="chip"><b class="px">'+camLbl(ty).replace(L(124,'ทุกกล้อง'),'ALL')+'</b>'+a.short+' →'+(sm?' <i>'+a.tools.map(function(){return '?';}).join('→')+'</i>':' '+a.tools.map(iconImg).join('→'))+'</span>';
+  });
+  $('#cheat').innerHTML=h;
+}
+
+/* ---------- SCREENS ---------- */
+function fitGrid(){}
+/* old fitGrid replaced by fitGame() */
+function show(id){
+  var list=document.querySelectorAll('.screen');
+  for(var i=0;i<list.length;i++)list[i].classList.remove('on');
+  $('#'+id).classList.add('on');
+  if(id==='s-game'){fitGrid();setTimeout(fitGrid,60);}
+}
+function refreshTitle(){
+  MODE='camp';playsShow();
+  $('#btnSur').textContent=L(232,'☠ โหมดเอาตัวรอด (Survivor)');
+  var best=0;try{best=parseInt(localStorage.getItem('kumkot_v3_best')||'0',10)||0;}catch(e){}
+  $('#surDesc').textContent=L(233,'สำหรับผู้เล่นช่ำชอง · ไม่มีวันจบ ยากขึ้นทุกคืน จนกว่าลูกน้องจะหมด')+(best>0?'  ·  '+L(234,'สถิติสูงสุด ')+fmtBaht(best):'');
+  var sv=loadSave(),bc=$('#btnCont');
+  if(sv&&(sv.night>0||aliveCount(sv.roster)<4)){
+    bc.style.display='';
+    bc.textContent=L(125,'⏩ เล่นต่อ คืนที่ ')+(sv.night+1)+L(126,' · ทีมเหลือ ')+aliveCount(sv.roster)+'/4';
+  }else bc.style.display='none';
+}
+function showBrief(ni){
+  curNight=ni; var cfg=MODE==='sur'?surCfg(sur.n):NIGHTS[ni];
+  if(MODE==='sur'){
+    $('#briefTitle').textContent=L(235,'☠ SURVIVOR · คืนที่ ')+cfg.n;
+    $('#briefSub').textContent=L(236,'ค่าแรงสะสม ')+fmtBaht(sur.earned)+L(237,' · ผีโจมตีพร้อมกันได้สูงสุด ')+cfg.cap+L(238,' จุด · เวลานับถอยหลังต่อครั้งประมาณ ')+cfg.dur.toFixed(1)+L(239,' วิ');
+  }else{
+    $('#briefTitle').textContent=L(127,'คืนที่ ')+cfg.n+' / 5';
+    $('#briefSub').textContent=cfg.sub;
+  }
+  $('#briefRules').innerHTML=rulesHTML(cfg,roster);
+  var h='';
+  STAFF.forEach(function(s,i){
+    var ok=roster[i];
+    h+='<div class="stf'+(ok?'':' dead')+'"><i style="background:'+(ok?s.color:'#444')+'"></i><b>'+s.name+'</b> · '+STATIONS[i].name+'<br><span style="color:#8590ab">'+(ok?s.desc:L(128,'✝ ไม่อยู่แล้ว'))+'</span></div>';
+  });
+  $('#briefStaff').innerHTML=h;
+  show('s-brief');
+}
+function showResult(win,quiet){
+  if(MODE==='sur'){showSurResult(win,quiet);return;}
+  running=false; cancelAnimationFrame(raf);
+  var pr=G._pr||(G._pr=roster.slice());G._win=win;
+  var alive=aliveCount(G.alive),lost=aliveCount(pr)-alive,fin=win&&curNight===4,surv=G.alive.slice();
+  var b=$('#resBtns'); b.innerHTML='';
+  function mkb(label,cls,fn){var x=document.createElement('button');x.className='btn '+cls;x.textContent=label;x.style.flex='1';x.onclick=function(){sfx.click();fn();};b.appendChild(x);}
+  var icon,title,text;
+  $('#resCredit').innerHTML='';$('#resStaff').innerHTML='';$('#resStaff').style.display='none';
+  if(win){
+    if(!quiet)sfx.win();
+    if(fin){writeSave(null);roster=[true,true,true,true];}
+    else{roster=G.alive.slice();writeSave({night:curNight+1,roster:roster});}
+    icon='🌤️';
+    title=fin?L(129,'6 โมงเช้า — รอดครบ 5 คืน'):L(130,'6 โมงเช้า — รอดไปอีกคืน');
+    if(fin)text=alive===4?L(131,'ไม่มีใครหายไปเลย ทีมครบทั้ง 4 คน'):L(132,'ทีมเหลือ ')+alive+L(133,' คน ที่รอดมาด้วยกันจนถึงเช้าวันสุดท้าย');
+    else text=lost===0?L(134,'คืนนี้ไม่มีใครหายไป ทีมเหลือ ')+alive+L(135,' คน'):L(136,'คืนนี้เสียพนักงานไป ')+lost+L(137,' คน ทีมเหลือ ')+alive+L(138,' คน และพวกเขาจะไม่กลับมาอีก');
+    var h='';
+    STAFF.forEach(function(s,i){
+      h+='<div class="stf'+(surv[i]?'':' dead')+'"><i style="background:'+(surv[i]?s.color:'#444')+'"></i><b>'+s.name+'</b><br><span style="color:'+(surv[i]?'#a4f4cc':'#8590ab')+'">'+(surv[i]?L(139,'✓ รอดชีวิต'):L(140,'✝ ไม่รอด'))+'</span></div>';
+    });
+    $('#resStaff').innerHTML=h;$('#resStaff').style.display='';
+  }else{
+    if(!quiet)sfx.scare();
+    icon='💀';title=L(141,'เวรนี้ไม่มีใครรอด');text=L(142,'ผีเอาลูกน้องไปครบ แล้วก็มาหา')+MANAGER+L(143,'ที่ห้องควบคุม');
+  }
+  $('#resIcon').textContent=icon;$('#resTitle').textContent=title;$('#resText').textContent=text;
+  $('#resStats').innerHTML=L(144,'<div class="stat"><span>ทีมที่เหลือ</span><b>')+(win?alive:aliveCount(pr))+' / 4</b></div>'+
+    L(145,'<div class="stat"><span>ช่วยทัน</span><b>')+G.saves+L(146,' ครั้ง</b></div>')+
+    L(147,'<div class="stat"><span>ใช้ไฟสีฟ้า</span><b>')+(G.blueUsed?L(148,'ใช้แล้ว'):L(149,'ไม่ได้ใช้'))+'</b></div>';
+  if(fin){mkb(L(228,'ดูตอนจบ →'),'main',function(){showEnding();});mkb(L(152,'หน้าหลัก'),'ghost',function(){refreshTitle();show('s-title');});}
+  else if(win){mkb(L(151,'คืนถัดไป →'),'main',function(){showBrief(curNight+1);});mkb(L(152,'หน้าหลัก'),'ghost',function(){refreshTitle();show('s-title');});}
+  else{mkb(L(153,'ลองคืนนี้ใหม่'),'main',function(){showBrief(curNight);});mkb(L(152,'หน้าหลัก'),'ghost',function(){refreshTitle();show('s-title');});}
+  var lb=document.createElement('button');lb.className='btn sq langbtn';b.appendChild(lb);setLangLabels();
+  show('s-result');
+}
+
+function showEnding(quiet){
+  var surv=(G&&G.alive)?G.alive.slice():[true,true,true,true],n=aliveCount(surv);
+  if(!quiet){try{sfx.chime();}catch(e){}}
+  var epi=['',L(215,'ดวงอาทิตย์ขึ้นแล้ว แต่ยังเหลือลูกน้องยืนอยู่คนเดียว เขาจะเล่าเรื่องคืนนี้ให้ใครฟัง และจะมีใครเชื่อไหม'),L(216,'แสงแรกของวันส่องเข้าร้าน รอดกันมาสองคน ร้านเงียบกว่าทุกครั้ง และกฎบางข้อ คุณคงไม่มีวันลืมไปตลอดชีวิต'),L(217,'แสงแรกของวันส่องเข้าร้าน ทีมรอดมาสามคน เหลือที่ว่างหนึ่งที่ที่ไม่มีใครกล้ามอง แต่คนที่เหลือยังอยู่ และคุณก็ยังอยู่'),L(218,'แสงแรกของวันส่องเข้าร้าน ลูกน้องทั้งสี่คนยังยืนอยู่ครบ ไม่มีใครหายไป คืนนี้ร้านนี้ปลอดภัย... อย่างน้อยก็จนกว่ากะดึกคืนหน้าจะมาถึง')];
+  $('#endKicker').textContent=L(220,'คุมกฎกะดึก · กะสุดท้ายจบแล้ว');
+  $('#endTitle').textContent=L(219,'6 โมงเช้า');
+  drawTitle('#endCv',true);
+  $('#endText').textContent=epi[Math.max(1,Math.min(4,n))];
+  $('#endTag').textContent=L(221,'ค่าแรงคืนละหมื่นอาจไม่คุ้มกับสิ่งที่เห็นในคืนนี้ แต่ใครจะกล้ารับกะต่อไป?');
+  $('#endHead').textContent=L(222,'ทีมที่รอดถึงเช้า');
+  var h='';
+  STAFF.forEach(function(s,i){
+    h+='<div class="stf'+(surv[i]?'':' dead')+'"><i style="background:'+(surv[i]?s.color:'#444')+'"></i><b>'+s.name+'</b> \u00b7 '+STATIONS[i].name+'<br><span style="color:'+(surv[i]?'#a4f4cc':'#8590ab')+'">'+(surv[i]?L(139,'✓ รอดชีวิต'):L(140,'✝ ไม่รอด'))+'</span></div>';
+  });
+  $('#endStaff').innerHTML=h;
+  $('#endCredit').innerHTML='<b>Thanks for playing</b><span>'+L(223,'ขอบคุณที่คุมกะดึกจนถึงเช้า')+'</span><span class="cc">This game is inspired by The Rules on Viu</span><span>'+L(224,'เกมแฟนเมดไม่เป็นทางการ ไม่มีส่วนเกี่ยวข้องกับ Viu หรือผู้สร้างซีรีส์ ตัวละคร ผี ภาพพิกเซล และเสียงทั้งหมดเป็นงานต้นฉบับ')+'</span><span>'+L(225,'สร้างโดย napmeks (@nmeksobh) · ทำร่วมกับ Claude')+'</span>';
+  var st='';
+  function shareText(){var u='';try{u=location.href.split('#')[0];}catch(e){}return L(229,'ฉันคุมกะดึกรอดถึง 6 โมงเช้าครบ 5 คืน! ทีมรอด ')+n+L(230,'/4 คน 🌅 #คุมกฎกะดึก ลองเล่นดูสิ: ')+u;}
+  $('#btnShare').textContent=L(226,'📣 แชร์ผลของฉัน');
+  $('#btnAgain').textContent=L(227,'เล่นใหม่');
+  $('#btnEndMenu').textContent=L(152,'หน้าหลัก');
+  $('#endMsg').textContent='';
+  $('#btnShare').onclick=function(){
+    sfx.click();var t=shareText();
+    function done(ok){$('#endMsg').textContent=ok?L(231,'คัดลอกข้อความแล้ว เอาไปโพสต์ได้เลย'):t;}
+    try{navigator.clipboard.writeText(t).then(function(){done(true);},function(){done(false);});}catch(e){done(false);}
+  };
+  $('#btnAgain').onclick=function(){sfx.click();roster=[true,true,true,true];writeSave(null);showBrief(0);};
+  $('#btnEndMenu').onclick=function(){sfx.click();refreshTitle();show('s-title');};
+  setLangLabels();
+  show('s-end');
+}
+
+
+/* ---------- SURVIVOR MODE ---------- */
+function fmtBaht(n){return '฿'+String(n).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+function nightLabel(ni){return MODE==='sur'?L(240,'☠ คืนที่ ')+sur.n:L(127,'คืนที่ ')+(ni+1)+' / 5';}
+function surCfg(n){
+  if(!sur)sur={n:1,earned:0,nights:[],cfgs:{}};
+  if(sur.cfgs[n])return sur.cfgs[n];
+  var k=n-1,nred=Math.min(3,1+Math.floor(n/3)),pool=[0.6,1.9,3.2,4.5],pk=[];
+  while(pk.length<nred&&pool.length)pk.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
+  pk.sort(function(a,b){return a-b;});
+  var rl=Math.min(2.2,0.9+0.12*n);
+  var cfg={n:n,types:ALL.slice(),interval:Math.max(1.9,9*Math.pow(0.86,k)),dur:Math.max(3.4,11.5*Math.pow(0.91,k)),
+    cap:Math.min(4,2+Math.floor(k/2)),burst:n>=3?Math.min(0.65,0.13*(n-2)):0,smudged:[],
+    vanish:{every:[Math.max(7,22*Math.pow(0.9,k)),Math.max(11,30*Math.pow(0.9,k))],dur:[12,16]},
+    red:pk.map(function(h){return [h+Math.random()*0.3,rl];}),
+    delivery:{every:[Math.max(22,38*Math.pow(0.95,k)),Math.max(32,52*Math.pow(0.95,k))]},sub:''};
+  sur.cfgs[n]=cfg;return cfg;
+}
+function startSurvivor(){
+  MODE='sur';sur={n:1,earned:0,nights:[],cfgs:{},done:false,cashed:false,newBest:false,best:0,cv:null};
+  roster=[true,true,true,true];showBrief(0);
+}
+function surRank(ns){
+  return ns<=0?L(265,'ไล่ออกตั้งแต่คืนแรก'):ns<=2?L(266,'ผู้จัดการฝึกหัด'):ns<=4?L(267,'เจ้าถิ่นกะดึก'):ns<=7?L(268,'ปรมาจารย์สมุดกฎ'):ns<=11?L(269,'ตำนานเที่ยงคืน'):L(270,'ผู้จัดการที่ผีก็เกรงใจ');
+}
+function showSurResult(win,quiet){
+  running=false;cancelAnimationFrame(raf);
+  if(!win){showSurFinal(quiet);return;}
+  var alive=aliveCount(G.alive);G._win=true;
+  if(!G._paid){G._paid=true;G._earn=alive*PAY;sur.earned+=G._earn;sur.nights.push({n:sur.n,alive:alive,earn:G._earn});roster=G.alive.slice();}
+  if(!quiet)sfx.win();
+  var b=$('#resBtns');b.innerHTML='';
+  function mkb(label,cls,fn){var x=document.createElement('button');x.className='btn '+cls;x.textContent=label;x.style.flex='1';x.onclick=function(){sfx.click();fn();};b.appendChild(x);}
+  $('#resCredit').innerHTML='';
+  $('#resIcon').textContent='💰';
+  $('#resTitle').textContent=L(242,'6 โมงเช้า — จ่ายค่าแรงแล้ว');
+  $('#resText').textContent=L(243,'ผ่านคืนที่ ')+sur.n+L(244,' สำเร็จ · รอด ')+alive+L(245,' คน × ฿10,000 = ')+fmtBaht(G._earn);
+  $('#resStats').innerHTML='<div class="stat"><span>'+L(246,'ค่าแรงคืนนี้')+'</span><b>'+fmtBaht(G._earn)+'</b></div><div class="stat"><span>'+L(247,'ค่าแรงสะสม')+'</span><b>'+fmtBaht(sur.earned)+'</b></div><div class="stat"><span>'+L(248,'ทีมที่เหลือ')+'</span><b>'+alive+' / 4</b></div>';
+  var h='';
+  STAFF.forEach(function(s,i){
+    h+='<div class="stf'+(G.alive[i]?'':' dead')+'"><i style="background:'+(G.alive[i]?s.color:'#444')+'"></i><b>'+s.name+'</b><br><span style="color:'+(G.alive[i]?'#a4f4cc':'#8590ab')+'">'+(G.alive[i]?L(139,'✓ รอดชีวิต'):L(140,'✝ ไม่รอด'))+'</span></div>';
+  });
+  $('#resStaff').innerHTML=h;$('#resStaff').style.display='';
+  mkb(L(249,'คืนถัดไป (ยากขึ้น) →'),'main',function(){sur.n++;showBrief(sur.n-1);});
+  mkb(L(250,'เก็บเงินแล้วเลิก'),'ghost',function(){sur.cashed=true;showSurFinal();});
+  var lb=document.createElement('button');lb.className='btn sq langbtn';b.appendChild(lb);setLangLabels();
+  show('s-result');
+}
+function drawScoreCard(cv,d){
+  var W=1080,H=1350;cv.width=W;cv.height=H;var c=cv.getContext('2d');
+  var F="'Noto Sans Thai','Sarabun','Leelawadee UI',system-ui,-apple-system,'Segoe UI',sans-serif";
+  var g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,'#05070e');g.addColorStop(1,'#141a3e');c.fillStyle=g;c.fillRect(0,0,W,H);
+  c.textAlign='center';c.textBaseline='alphabetic';
+  c.font='800 74px '+F;c.fillStyle='#7a1020';c.fillText(L(260,'คุมกฎกะดึก'),W/2+4,104);c.fillStyle='#ffffff';c.fillText(L(260,'คุมกฎกะดึก'),W/2,100);
+  c.font='700 30px '+F;c.fillStyle='#f0c04a';c.fillText('☠  SURVIVOR MODE  ☠',W/2,152);
+  var t=mk(80,48);drawStoreOn(t.getContext('2d'),false);
+  c.imageSmoothingEnabled=false;c.fillStyle='#05070e';c.fillRect(34,180,1012,612);c.drawImage(t,40,186,1000,600);
+  c.strokeStyle='#2c3a5e';c.lineWidth=6;c.strokeRect(37,183,1006,606);
+  if(d.newBest){c.save();c.translate(900,250);c.rotate(0.14);c.fillStyle='#d8344a';c.fillRect(-120,-30,240,60);c.strokeStyle='#fff';c.lineWidth=4;c.strokeRect(-120,-30,240,60);c.fillStyle='#fff';c.font='800 34px '+F;c.fillText('NEW BEST!',0,12);c.restore();}
+  c.font='600 34px '+F;c.fillStyle='#cfe0ff';c.fillText(L(261,'ค่าแรงที่ลูกน้องหามาได้'),W/2,860);
+  var money=fmtBaht(d.earned);c.font='800 150px '+F;c.fillStyle='#5a3a00';c.fillText(money,W/2+6,1004);c.fillStyle='#ffd54a';c.fillText(money,W/2,998);
+  function box(x,num,lab){c.fillStyle='#0d1222';c.fillRect(x,1040,460,130);c.strokeStyle='#2c3a5e';c.lineWidth=4;c.strokeRect(x,1040,460,130);
+    c.fillStyle='#ffffff';c.font='800 62px '+F;c.fillText(String(num),x+230,1105);c.fillStyle='#8590ab';c.font='600 26px '+F;c.fillText(lab,x+230,1150);}
+  box(60,d.nights,L(262,'คืนที่รอด'));box(560,d.staffNights,L(263,'คน-คืนที่รอด'));
+  c.font='800 46px '+F;c.fillStyle='#f0c04a';c.fillText('★ '+d.rank+' ★',W/2,1238);
+  c.font='600 28px '+F;c.fillStyle='#c9d1e8';c.fillText('napmeks (@nmeksobh)',W/2,1286);
+  c.font='500 20px '+F;c.fillStyle='#8590ab';c.fillText(L(264,'เกมแฟนเมดไม่เป็นทางการ · แรงบันดาลใจจาก The Rules (Viu)'),W/2,1316);
+  if(d.url){c.fillText(d.url,W/2,1340);}
+}
+function surUrl(){var u='';try{u=location.href.split('#')[0];if(!/^https?:/.test(u))u='';}catch(e){u='';}return u;}
+function surShareText(){
+  var ns=sur.nights.length;
+  return L(271,'ฉันคุมกะดึกโหมด Survivor ได้ ')+ns+L(272,' คืน ลูกน้องหาเงินได้ ฿')+String(sur.earned).replace(/\B(?=(\d{3})+(?!\d))/g,',')+' 💰 '+surRank(ns)+L(273,' — ลองดูสิว่าไปได้ไกลกว่าไหม? #คุมกฎกะดึก ')+surUrl();
+}
+function surMsg(t){$('#scMsg').textContent=t;}
+function surBlob(cb){var cv=sur&&sur.cv;if(cv&&cv.toBlob)cv.toBlob(function(b){cb(b);},'image/png');else cb(null);}
+function showSurFinal(quiet){
+  running=false;cancelAnimationFrame(raf);
+  if(!sur.done){
+    sur.done=true;
+    try{sur.best=parseInt(localStorage.getItem('kumkot_v3_best')||'0',10)||0;}catch(e){sur.best=0;}
+    sur.newBest=sur.earned>0&&sur.earned>sur.best;
+    if(sur.newBest){try{localStorage.setItem('kumkot_v3_best',String(sur.earned));}catch(e){}}
+  }
+  var ns=sur.nights.length;
+  if(!quiet){try{sfx.chime();}catch(e){}}
+  $('#scTitle').textContent=sur.cashed?L(252,'จบกะ — เก็บเงินแล้ว'):L(251,'จบกะ — ลูกน้องหมดแล้ว');
+  sur.cv=mk(1080,1350);
+  drawScoreCard(sur.cv,{earned:sur.earned,nights:ns,staffNights:Math.round(sur.earned/PAY),rank:surRank(ns),newBest:sur.newBest,url:surUrl()});
+  try{$('#scImg').src=sur.cv.toDataURL('image/png');}catch(e){}
+  sur.file=null;try{sur.cv.toBlob(function(b){if(b){sur.blob=b;try{sur.file=new File([b],'kumkot-survivor.png',{type:'image/png'});}catch(e){sur.file=null;}}},'image/png');}catch(e){}
+  $('#scHint').textContent=L(253,'กดค้างที่รูปเพื่อบันทึก หรือใช้ปุ่มด้านล่าง');surMsg('');
+  $('#btnScSave').textContent=L(254,'💾 บันทึกรูป');$('#btnScShare').textContent=L(255,'📣 แชร์');
+  $('#btnScAgain').textContent=L(256,'☠ เล่น Survivor ใหม่');$('#btnScMenu').textContent=L(152,'หน้าหลัก');
+  $('#btnScSave').onclick=function(){
+    sfx.click();
+    surBlob(function(bl){
+      if(!bl){surMsg(L(258,'บันทึกอัตโนมัติไม่ได้ — กดค้างที่รูปแล้วเลือกบันทึก'));return;}
+      function fb(){try{var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='kumkot-survivor.png';document.body.appendChild(a);a.click();setTimeout(function(){if(a.parentNode)a.parentNode.removeChild(a);},500);surMsg(L(257,'บันทึกแล้ว'));}catch(e){surMsg(L(258,'บันทึกอัตโนมัติไม่ได้ — กดค้างที่รูปแล้วเลือกบันทึก'));}}
+      try{
+        if(typeof claude!=='undefined'&&claude&&claude.use){
+          claude.use('downloads').then(function(dl){
+            if(!dl){fb();return;}
+            dl.save({filename:'kumkot-survivor.png',data:bl}).then(function(){surMsg(L(257,'บันทึกแล้ว'));},function(err){if(err&&err.code==='declined')return;surMsg(L(258,'บันทึกอัตโนมัติไม่ได้ — กดค้างที่รูปแล้วเลือกบันทึก'));});
+          },function(){fb();});
+        }else fb();
+      }catch(e){fb();}
+    });
+  };
+  $('#btnScShare').onclick=function(){
+    sfx.click();var text=surShareText();
+    function copyTxt(){
+      var done=false;
+      try{var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;left:0;top:0;opacity:0;';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,99999);done=document.execCommand('copy');document.body.removeChild(ta);}catch(e){done=false;}
+      if(done){surMsg(L(259,'คัดลอกข้อความแล้ว เอาไปโพสต์ได้เลย'));return;}
+      try{navigator.clipboard.writeText(text).then(function(){surMsg(L(259,'คัดลอกข้อความแล้ว เอาไปโพสต์ได้เลย'));},function(){surMsg(text);});}catch(e){surMsg(text);}
+    }
+    function aborted(e){return e&&e.name==='AbortError';}
+    function shareText(){
+      if(navigator.share){navigator.share({text:text}).catch(function(e){if(!aborted(e))copyTxt();});}
+      else copyTxt();
+    }
+    try{
+      var f=sur&&sur.file;
+      if(f&&navigator.canShare&&navigator.share&&navigator.canShare({files:[f]})){
+        navigator.share({files:[f],text:text}).catch(function(e){if(aborted(e))return;shareText();});
+        return;
+      }
+    }catch(e){}
+    try{shareText();}catch(e){copyTxt();}
+  };
+  $('#btnScAgain').onclick=function(){sfx.click();startSurvivor();};
+  $('#btnScMenu').onclick=function(){sfx.click();refreshTitle();show('s-title');};
+  setLangLabels();
+  show('s-score');
+}
+
+/* ---------- GAME ---------- */
+function newGame(ni){
+  var cfg=MODE==='sur'?surCfg(sur.n):NIGHTS[ni];
+  G={ni:ni,cfg:cfg,t:0,alive:roster.slice(),occ:[0,1,2,3].map(function(i){return roster[i]?i:-1;}),anoms:[],sel:-1,
+     away:[0,0,0,0],attackT:[-1,-1,-1,-1],vanishT:cfg.vanish?rand(14,20):999,
+     nextSpawn:5,cashT:(roster[0]?0:-4),redT:0,delivT:cfg.delivery?rand(28,40):999,saves:0,over:false,paused:false,blueUsed:false,blueT:0,sirenT:0,
+     say:[null,null,null,null],sayT:[0,0,0,0],chatT:[rand(4,9),rand(4,9),rand(4,9),rand(4,9)],
+     flash:0,bflash:0,ringT:0,beatT:0,time:0,pendingEnd:0};
+  $('#toast').innerHTML='';$('#toast').classList.remove('on');clearTimeout(toastTmr);
+  $('#overlay').classList.remove('on');
+  $('#nightlbl').textContent=nightLabel(ni);
+  setSel(-1);buildCheat();
+  var bb=$('#btnBlue');bb.disabled=false;bb.textContent=L(154,'💙 ไฟสีฟ้า — ทุกอย่างกลับเป็นปกติ 15 นาที (ใช้ได้ 1 ครั้ง)');
+  if(MODE==='sur'){if(sur.n===1)toast(L(241,'โหมด Survivor: กฎครบทุกข้อตั้งแต่คืนแรก ผีจะเร็วและพร้อมกันมากขึ้นทุกคืน'),6500);}else if(ni===0)toast(L(155,'แตะกล้องที่มีเหตุผิดปกติ แล้วกดเครื่องมือ — กดผิดคือพนักงานตาย ดูสมุดกฎ 📖 ให้ดี'),6500);
+}
+function setSel(i){
+  G.sel=i;
+  for(var k=0;k<4;k++)tiles[k].el.classList.toggle('sel',k===i);
+  $('#selinfo').innerHTML=i<0?L(156,'แตะกล้องที่ต้องการ แล้วกดเครื่องมือ'):L(157,'เลือกอยู่: <b>')+STATIONS[i].cam+' · '+STATIONS[i].name+'</b> — '+(G.occ[i]>=0?STAFF[G.occ[i]].name:L(158,'ไม่มีคนประจำ (จอดำ)'));
+}
+var toastTmr=0;
+function toast(msg,ms){
+  var t=$('#toast');t.innerHTML='';
+  var sp=document.createElement('span');sp.textContent=msg;t.appendChild(sp);
+  t.classList.add('on');
+  clearTimeout(toastTmr);
+  toastTmr=setTimeout(function(){t.innerHTML='';t.classList.remove('on');},ms||3300);
+}
+/* คำลงท้ายตามเพศพนักงานที่ประจำจุดนั้น: {k}=ค่ะ/ครับ {q}=คะ/ครับ {me}=หนู/ผม */
+function tk(st,txt){
+  var s=G&&G.occ[st]>=0?STAFF[G.occ[st]]:null,m=s&&s.g==='m';
+  return txt.replace(/\{k\}/g,m?L(159,'ครับ'):L(160,'ค่ะ')).replace(/\{q\}/g,m?L(159,'ครับ'):L(161,'คะ')).replace(/\{me\}/g,m?L(162,'ผม'):L(163,'หนู'));
+}
+function sayAt(i,txt,cls,dur){G.say[i]={t:tk(i,txt),c:cls||''};G.sayT[i]=dur||1.8;}
+function anomAt(st){for(var i=0;i<G.anoms.length;i++)if(G.anoms[i].st===st)return G.anoms[i];return null;}
+function redOn(){
+  if(G.blueT>0)return false;
+  var w=G.cfg.red;
+  for(var i=0;i<w.length;i++)if(G.t>=w[i][0]*HOUR&&G.t<(w[i][0]+w[i][1])*HOUR)return w[i];
+  if(G.redT>0)return [G.t/HOUR,G.redT/HOUR];
+  return false;
+}
+function camLbl(ty){var a=ANOM[ty];return a.st<0?L(124,'ทุกกล้อง'):STATIONS[a.st].cam;}
+function spawnAt(st){
+  var manned=G.occ[st]>=0&&G.away[st]<=0;
+  var l=G.cfg.types.filter(function(ty){var d=ANOM[ty];if(d.good)return false;return d.st===st||(d.st===-1&&manned);});
+  if(!l.length||anomAt(st))return false;
+  var need=G.occ[st]<0||G.away[st]>0;
+  G.anoms.push({kind:'bad',type:pick(l),st:st,prog:0,age:0,step:0,need:need});
+  G.attackT[st]=-1;
+  sfx.spawn();
+  return true;
+}
+function trySpawnDelivery(){
+  if(G.occ[3]<0||G.away[3]>0||anomAt(3)||G.attackT[3]>=0)return false;
+  G.anoms.push({kind:'good',good:true,type:'delivery',st:3,prog:0,age:0,step:0,need:false,life:14});
+  sfx.deliv();toast(L(164,'📦 พนักงานส่งของมาถึงห้องสต็อก (CAM4)'));
+  return true;
+}
+function freeStations(except){return [0,1,2,3].filter(function(x){return x!==except&&G.occ[x]>=0&&!anomAt(x);});}
+function trySpawn(){
+  if(G.blueT>0)return false;
+  var cap=Math.min(G.cfg.cap,aliveCount(G.alive));
+  if(G.anoms.filter(function(x){return !x.good;}).length>=cap)return false;
+  var freeN=freeStations(-1).length;
+  var sts=[0,1,2,3].filter(function(s){return !anomAt(s)&&G.attackT[s]<0&&(G.occ[s]>=0||freeN>0);});
+  if(!sts.length)return false;
+  return spawnAt(pick(sts));
+}
+/* เรียกพนักงานที่ว่างมาประจำจุด st — คืนค่า id พนักงาน หรือ -1 ถ้าไม่มีใครว่าง */
+function summon(st){
+  var c=freeStations(st);
+  if(!c.length)return -1;
+  var f=c.filter(function(x){return G.away[x]<=0;});
+  var from=pick(f.length?f:c),s=G.occ[from];
+  G.occ[from]=-1;G.away[from]=0;G.attackT[from]=-1;G.say[from]=null;G.sayT[from]=0;
+  G.occ[st]=s;G.away[st]=0;G.attackT[st]=-1;
+  toast('🚶 '+STAFF[s].name+L(165,' เดินจาก ')+STATIONS[from].cam+L(166,' ไป ')+STATIONS[st].cam);
+  return s;
+}
+function doVanish(){
+  var v=G.cfg.vanish;if(!v)return;
+  var away=0;for(var k=0;k<4;k++)if(G.occ[k]>=0&&G.away[k]>0)away++;
+  if(away>=(G.cfg.n>=4?2:1))return;
+  var cand=[0,1,2,3].filter(function(i){return G.occ[i]>=0&&G.away[i]<=0&&!anomAt(i)&&G.attackT[i]<0;});
+  if(!cand.length)return;
+  var i=pick(cand);
+  G.away[i]=rand(v.dur[0],v.dur[1]);
+  if(Math.random()<.85)G.attackT[i]=rand(3,5.5);
+  sfx.vanish();
+  toast('👀 '+STAFF[G.occ[i]].name+L(167,' หายไปจากกล้อง ')+STATIONS[i].cam+'!');
+}
+function wrongDeath(s,why){
+  toast('❌ '+why+' — '+STAFF[s].name+L(168,' ถูกผีเอาตัวไป'));
+  killStaff(s);
+}
+function useTool(key){
+  if(!G||G.over||G.paused)return;
+  initAudio();
+  if(G.blueT>0){toast(L(169,'💙 ตอนนี้ทุกอย่างปกติ ไม่ต้องทำอะไร'));return;}
+  if(G.sel<0){toast(L(170,'แตะกล้องที่ต้องการก่อน แล้วค่อยกดเครื่องมือ'));return;}
+  var st=G.sel,s=G.occ[st],a=anomAt(st);
+  if(!a){
+    if(s<0){
+      if(key!=='bell'){sfx.click();toast(L(171,'กล้องนี้ไม่มีคนประจำ — กดกระดิ่งเรียกพนักงานมาประจำได้'));return;}
+      if(summon(st)<0){sfx.bad();toast(L(172,'ตอนนี้ไม่มีพนักงานว่างให้เรียก!'));return;}
+      sayAt(st,L(173,'“มาแล้ว{k} ')+MANAGER+'!”','ok',1.8);sfx.good();setSel(-1);return;
+    }
+    if(G.away[st]>0){sfx.click();toast(L(174,'พนักงานหายไปจากกล้อง แต่ยังไม่มีผี — รอให้เขากลับมาเอง'));return;}
+    sfx.bad();wrongDeath(s,L(175,'กดเครื่องมือโดยไม่มีเหตุผิดปกติ'));return;
+  }
+  var def=ANOM[a.type];
+  if(a.good){
+    G.anoms.splice(G.anoms.indexOf(a),1);
+    if(key===def.tools[0]){
+      G.saves++;sayAt(st,def.done,'ok',2.4);sfx.good();
+    }else{
+      G.redT=Math.max(G.redT,30/360*NIGHT_LEN);
+      sfx.bad();toast(L(176,'⚠ ใช้ผิด — ไฟแดงติด 30 นาทีในเกม (พนักงานไม่เป็นอะไร)'));
+    }
+    setSel(-1);return;
+  }
+  var seq=seqOf(a),stp=a.step||0;
+  if(s<0){
+    if(key!=='bell'||stp!==0){
+      sfx.bad();a.prog=Math.min(.97,a.prog+.25);
+      toast(L(177,'ไม่มีใครอยู่ที่นี่ เครื่องมือไม่ได้ผล — กดกระดิ่งเรียกคนมาก่อน'));return;
+    }
+    var w=summon(st);
+    if(w<0){sfx.bad();toast(L(172,'ตอนนี้ไม่มีพนักงานว่างให้เรียก!'));return;}
+    a.step=1;
+    sayAt(st,L(173,'“มาแล้ว{k} ')+MANAGER+'!”','ok',1.8);sfx.good();
+    if(a.step>=seq.length){
+      G.anoms.splice(G.anoms.indexOf(a),1);G.saves++;sfx.good();setSel(-1);
+    }else{
+      a.prog=Math.max(0,a.prog-0.15);setSel(G.sel);
+    }
+    return;
+  }
+  if(seq[stp]!==key){sfx.bad();wrongDeath(s,L(178,'ใช้เครื่องมือผิด'));return;}
+  a.step=stp+1;
+  if(a.need&&a.step===1)G.away[st]=0;
+  var ti=stp-(a.need?1:0);   /* ลำดับขั้นของเครื่องมือจริง (ไม่นับกระดิ่งเรียกคน) */
+  if(a.step>=seq.length){
+    G.anoms.splice(G.anoms.indexOf(a),1);G.saves++;
+    sayAt(st,def.done||L(179,'“ขอบคุณ{k} ')+MANAGER+L(180,'... เกือบไปแล้ว”'),'ok',2.4);
+    sfx.good();setSel(-1);
+  }else{
+    a.prog=Math.max(0,a.prog-0.15);
+    sayAt(st,ti===0&&def.s1?def.s1:(a.need&&a.step===1?L(181,'“มาแล้ว{k}! แต่ยังไม่จบนะพี่!”'):L(182,'“ดีขึ้นนิดนึง... แต่ยังไม่หายนะพี่!”')),'ok',1.8);
+    sfx.good();
+  }
+}
+function useBlue(){
+  if(!G||G.over||G.paused||G.blueUsed||G.blueT>0)return;
+  initAudio();
+  G.blueUsed=true;G.blueT=BLUE_SEC;G.bflash=1;
+  G.saves+=G.anoms.filter(function(x){return !x.good;}).length;G.anoms=[];
+  for(var i=0;i<4;i++){G.away[i]=0;G.attackT[i]=-1;if(G.occ[i]>=0)sayAt(i,pick([L(183,'“...เหมือนทุกอย่างกลับมาปกติแล้ว”'),L(184,'“ไฟสีฟ้า... อุ่นใจจัง”'),L(185,'“เมื่อกี้ฝันไปหรือเปล่านะ”')]),'ok',3);}
+  sfx.blue();
+  toast(L(186,'💙 ไฟสีฟ้า — ทุกอย่างกลับเป็นปกติ'));
+  var bb=$('#btnBlue');bb.disabled=true;bb.textContent=L(187,'💙 ใช้ไฟสีฟ้าแล้ว');
+}
+function killStaff(s){
+  var st=G.occ.indexOf(s);
+  G.alive[s]=false;
+  if(st>=0){
+    G.occ[st]=-1;G.away[st]=0;G.attackT[st]=-1;G.say[st]=null;G.sayT[st]=0;
+    for(var k=G.anoms.length-1;k>=0;k--)if(G.anoms[k].st===st)G.anoms.splice(k,1);
+  }
+  G.flash=1;sfx.death();
+  if(!G.over&&!redOn()){G.redT=30/360*NIGHT_LEN;toast(L(188,'🚨 มีพนักงานถูกผีเอาไป — ไฟแดงติด 30 นาทีในเกม'));}
+  var gs=$('#s-game');gs.classList.remove('shake');void gs.offsetWidth;gs.classList.add('shake');
+  setSel(G.sel);buildCheat();
+  if(aliveCount(G.alive)===0){G.over=true;G.pendingEnd=1.4;}
+}
+function managerDeath(){
+  sfx.scare();
+  $('#scareTxt').textContent=L(189,'ลูกน้องหมดแล้ว... ผีหันมาหา')+MANAGER;
+  $('#scare').classList.add('on');
+  var c=$('#scareCv').getContext('2d'),t0=performance.now();
+  var iv=setInterval(function(){drawGhostFace(c,(performance.now()-t0)/1000,true);},70);
+  setTimeout(function(){clearInterval(iv);$('#scare').classList.remove('on');showResult(false);},2600);
+}
+function update(dt){
+  if(G.paused)return;
+  G.time+=dt;
+  G.flash=Math.max(0,G.flash-dt*2.5);G.bflash=Math.max(0,G.bflash-dt*2);
+  if(G.over){
+    if(G.pendingEnd>0){G.pendingEnd-=dt;if(G.pendingEnd<=0){G.pendingEnd=-1;if(aliveCount(G.alive)===0)managerDeath();}}
+    return;
+  }
+  var cfg=G.cfg,i;
+  G.t+=dt;
+  var blue=G.blueT>0;
+  if(blue){
+    G.blueT-=dt;
+    if(G.blueT<=0){G.blueT=0;G.nextSpawn=Math.max(G.nextSpawn,3.5);G.vanishT=Math.max(G.vanishT,6);toast(L(190,'ไฟสีฟ้าหมดเวลา — ระวังตัวด้วย'));}
+  }
+  var red=!blue&&redOn();
+  if(!blue){
+    if(G.occ[0]<0){
+      G.cashT+=dt;
+      if(G.cashT>=CASH_SEC){
+        G.cashT=0;
+        var ls0=[0,1,2,3].filter(function(x){return G.alive[x];});
+        if(ls0.length){var v0=pick(ls0);toast(L(191,'🚨 แคชเชียร์ว่างเกิน 15 นาที — ผีเอาตัว ')+STAFF[v0].name+L(192,' ไปแทน'));killStaff(v0);if(G.over)return;}
+      }
+    }else G.cashT=0;
+    if(G.redT>0)G.redT=Math.max(0,G.redT-dt);
+    if(cfg.delivery){G.delivT-=dt;if(G.delivT<=0){G.delivT=trySpawnDelivery()?rand(cfg.delivery.every[0],cfg.delivery.every[1]):3;}}
+    G.nextSpawn-=dt*(red?1.7:1);
+    if(G.nextSpawn<=0){var ok=trySpawn();if(ok&&cfg.burst&&Math.random()<cfg.burst)trySpawn();G.nextSpawn=ok?cfg.interval*(1-0.2*G.t/NIGHT_LEN)*(1+0.5*(4-aliveCount(G.alive)))*rand(.8,1.2):1.5;}
+    if(cfg.vanish){G.vanishT-=dt*(red?1.4:1);if(G.vanishT<=0){doVanish();G.vanishT=rand(cfg.vanish.every[0],cfg.vanish.every[1]);}}
+    for(i=0;i<4;i++){
+      if(G.attackT[i]>=0){G.attackT[i]-=dt;if(G.attackT[i]<=0){G.attackT[i]=-1;if(G.occ[i]>=0&&G.away[i]>0)spawnAt(i);}}
+      if(G.away[i]>0&&!anomAt(i)){
+        G.away[i]-=dt;
+        if(G.away[i]<=0){G.away[i]=0;G.attackT[i]=-1;if(G.occ[i]>=0)sayAt(i,L(193,'“ขอโทษ{k} ไปห้องน้ำมา”'),'',2);}
+      }
+    }
+  }
+  if(red){G.sirenT-=dt;if(G.sirenT<=0){sfx.siren();G.sirenT=1.6;}}
+  var maxProg=0,hasPhone=false,doomed=[];
+  for(i=G.anoms.length-1;i>=0;i--){
+    var a=G.anoms[i];a.age+=dt;
+    if(a.good){if(a.age>=a.life)G.anoms.splice(i,1);continue;}
+    var os=G.occ[a.st],tr=os>=0?STAFF[os].trait:1.0;
+    var spd=tr*(red?1.25:1)/(cfg.dur*(1+0.1*(4-aliveCount(G.alive)))*(ANOM[a.type].dm||1)*(a.need?1.2:1));
+    a.prog+=dt*spd;
+    if(a.type==='phone')hasPhone=true;
+    if(a.prog>maxProg)maxProg=a.prog;
+    if(a.prog>=1)doomed.push(a);
+  }
+  for(i=0;i<doomed.length;i++){
+    var d=doomed[i],di=G.anoms.indexOf(d);
+    if(di<0)continue;
+    var vic=G.occ[d.st];
+    if(vic<0){
+      G.anoms.splice(di,1);
+      var ls=[0,1,2,3].filter(function(x){return G.alive[x];});
+      if(!ls.length)continue;
+      vic=pick(ls);
+      toast(L(194,'👻 ผีที่ ')+STATIONS[d.st].cam+L(195,' ไม่มีใครดูแล — ตามไปเอาตัว ')+STAFF[vic].name+L(196,' แทน'));
+    }
+    killStaff(vic);
+    if(G.over)return;
+  }
+  G.ringT-=dt;if(hasPhone&&G.ringT<=0){sfx.ring();G.ringT=1.3;}
+  G.beatT-=dt;if(maxProg>.65&&G.beatT<=0){sfx.beat();G.beatT=.75;}
+  for(var s=0;s<4;s++){
+    if(G.sayT[s]>0){G.sayT[s]-=dt;if(G.sayT[s]<=0)G.say[s]=null;}
+    G.chatT[s]-=dt;
+    if(G.chatT[s]<=0){
+      G.chatT[s]=rand(9,16);
+      if(G.occ[s]>=0&&G.away[s]<=0&&!anomAt(s)&&!G.say[s])sayAt(s,'“'+pick(STAFF[G.occ[s]].idle)+'”','',2.4);
+    }
+  }
+  if(G.t>=NIGHT_LEN){G.over=true;showResult(true);}
+}
+
+function render(){
+  var t=G.time,i,red=redOn(),blue=G.blueT>0;
+  for(i=0;i<4;i++){
+    var c=ctxs[i],A=anomAt(i),s=G.occ[i],tl=tiles[i],unm=s<0,away=!unm&&G.away[i]>0;
+    var prog=A&&!A.good?A.prog:0;
+    if(unm&&!A)sceneDead(c,t);
+    else{
+      var sid=(!unm&&!away)?s:-1;
+      c.save();c.translate(0,16);
+      if(i===0)sceneCashier(c,t,A,sid);
+      else if(i===1)sceneShelf(c,t,A,sid);
+      else if(i===2)sceneFreezer(c,t,A,sid);
+      else sceneStock(c,t,A,sid);
+      if(A&&A.type==='phone'&&sid>=0)drawMobile(c,t,i);
+      c.restore();
+      finishScene(c,t,prog,!!red,blue,away);
+      if(unm){
+        R(c,0,0,W,H,'rgba(0,0,0,.45)');
+        for(var q=0;q<26;q++){var v=Math.floor(Math.random()*120);R(c,Math.random()*W,Math.random()*H,3,1,'rgb('+v+','+v+','+(v+10)+')');}
+      }
+    }
+    var cap='',cls='',tcls='tile'+(G.sel===i?' sel':'');
+    if(unm&&!A){
+      if(i===0){var left=Math.max(1,Math.ceil(CASH_SEC-Math.max(0,G.cashT)));cap=L(197,'🚨 แคชเชียร์ว่าง! เหลือ ')+left+L(198,' วิ — กดกระดิ่งเรียกคน');cls='cap warn';tcls+=left<=3?' danger':' warn';}
+      else{cap=L(199,'ไม่มีคนประจำจุดนี้');cls='cap dead';tcls+=' dead';}
+    }
+    else if(G.say[i]){cap=G.say[i].t;cls='cap '+G.say[i].c;}
+    else if(A&&A.need&&A.step===0){cap=unm?L(200,'⚠ ไม่มีใครอยู่ที่นี่ ผีมาแล้ว — กดกระดิ่งเรียกคนมาช่วย'):L(201,'⚠ พนักงานหายไป! ผีมาแล้ว — กดกระดิ่งก่อน');cls='cap warn';}
+    else if(A){var def=ANOM[A.type];cap=A.good?def.cap1:tk(i,A.prog>.55?def.cap2:def.cap1);cls=A.good?'cap ok':'cap bad';}
+    else if(away){cap=L(202,'👀 พนักงานหายไปจากกล้อง...');cls='cap warn';}
+    if(away&&!A)tcls+=' away';
+    if(A&&!A.good)tcls+=prog>.7?' danger':prog>.4?' warn':'';
+    var nm=unm?'':STAFF[s].name+(away?' 👀':'');
+    if(tl.lastNm!==nm){tl.nm.textContent=nm;tl.lastNm=nm;}
+    if(tl.lastCap!==cap){tl.cap.textContent=cap;tl.lastCap=cap;}
+    if(tl.lastCls!==cls){tl.cap.className=cls||'cap';tl.lastCls=cls;}
+    if(tl.el.className!==tcls)tl.el.className=tcls;
+    tl.bar.style.width=(prog*100).toFixed(0)+'%';
+    tl.bar.style.background='hsl('+Math.round(120*(1-prog))+',70%,48%)';
+  }
+  var m=Math.floor(G.t/NIGHT_LEN*360),h=Math.floor(m/60),mm=m%60;
+  $('#clock').textContent=(h===0?12:h)+':'+pad(mm)+' AM';
+  $('#alivebox').textContent='👥 '+aliveCount(G.alive)+'/4';
+  var ab=$('#alertbar'),txt,acls='';
+  if(blue){txt=L(276,'💙 ไฟสีฟ้า · ')+Math.ceil(G.blueT)+L(205,' วิ');acls='blue';}
+  else if(G.occ[0]<0){txt=L(275,'🚨 แคชเชียร์ว่าง! ')+Math.max(1,Math.ceil(CASH_SEC-Math.max(0,G.cashT)))+L(205,' วิ');acls='red';}
+  else if(red){txt=L(274,'🚨 ไฟแดงฉุกเฉิน');acls='red';}
+  else txt=L(207,'ร้านเงียบ');
+  if(ab.textContent!==txt)ab.textContent=txt;
+  if(ab.className!==acls)ab.className=acls;
+  $('#flash').style.opacity=String(G.flash*0.55);
+  $('#bflash').style.opacity=String(G.bflash*0.45);
+}
+
+function frame(ts){
+  if(!running)return;
+  var dt=Math.min(0.1,(ts-lastTs)/1000||0);lastTs=ts;
+  update(dt);
+  if(running)render();
+  raf=requestAnimationFrame(frame);
+}
+
+/* ---------- FIT GRID TO SCREEN ---------- */
+function fitReset(){var gr=document.getElementById('grid'),tt=document.getElementById('toast');if(gr)gr.style.width='';if(tt)tt.style.width='';}
+function fitGame(){
+  try{
+    var g=document.getElementById('s-game');if(!g||!g.classList.contains('on'))return;
+    var grid=document.getElementById('grid'),toast=document.getElementById('toast');if(!grid)return;
+    var over=g.scrollHeight-g.clientHeight;
+    if(over<=0)return;                       /* fits at full size: leave it alone */
+    var gr=grid.getBoundingClientRect();if(!gr.width)return;
+    var ratio=gr.height/gr.width||1;
+    var nw=Math.max(170,Math.floor(gr.width-(over+6)/ratio));
+    grid.style.width=nw+'px';if(toast)toast.style.width=nw+'px';
+  }catch(e){}
+}
+window.addEventListener('resize',function(){fitReset();fitGame();});
+window.addEventListener('orientationchange',function(){setTimeout(function(){fitReset();fitGame();},150);});
+setInterval(fitGame,250);
+var PLAYS_API="";
+var playsN=null;
+function playsShow(){var e=document.getElementById('plays');if(!e)return;
+  if(playsN==null||!isFinite(playsN)){e.style.display='none';return;}
+  e.textContent=L(277,'🏪 เปิดมาแล้ว ')+playsN.toLocaleString('en-US')+L(278,' สาขา');e.style.display='block';}
+function playsLoad(){try{if(!PLAYS_API)return;fetch(PLAYS_API,{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){if(j&&typeof j.n==='number'){playsN=j.n;playsShow();}}).catch(function(){});}catch(e){}}
+function countPlay(){try{
+  if(!PLAYS_API)return;
+  if(sessionStorage.getItem('kumkot_counted'))return;sessionStorage.setItem('kumkot_counted','1');
+  fetch(PLAYS_API,{method:'POST'}).then(function(r){return r.ok?r.json():null;}).then(function(j){if(j&&typeof j.n==='number'){playsN=j.n;playsShow();}}).catch(function(){});
+}catch(e){}}
+function startNight(ni){countPlay();
+  initAudio();
+  newGame(ni);
+  setTimeout(function(){if(G&&G.ni===ni&&!G.over)sfx.chime();},250);
+  show('s-game');fitReset();fitGame();
+  running=true;lastTs=performance.now();
+  cancelAnimationFrame(raf);
+  raf=requestAnimationFrame(frame);
+}
+function toggleRules(){
+  if(!G||G.over)return;
+  var ov=$('#overlay');
+  if(ov.classList.contains('on')){ov.classList.remove('on');G.paused=false;return;}
+  ov.innerHTML=L(208,'<h2>📖 สมุดกฎ — คืนที่ ')+G.cfg.n+L(209,'</h2><p class="sub">เกมหยุดชั่วคราวระหว่างอ่าน</p>')+rulesHTML(G.cfg,G.alive)+
+    L(210,'<div class="spacer"></div><div class="row"><button class="btn main" id="btnCloseRules" style="flex:1">กลับไปดูกล้อง</button><button class="btn sq langbtn"></button></div>');
+  setLangLabels();
+  ov.classList.add('on');G.paused=true;
+  $('#btnCloseRules').onclick=function(){sfx.click();toggleRules();};
+}
+
+/* ---------- EVENTS ---------- */
+function wire(){
+  $('#mgrName').textContent=MANAGER;
+  $('#btnStart').onclick=function(){initAudio();sfx.click();MODE='camp';roster=[true,true,true,true];showBrief(0);};
+  $('#btnCont').onclick=function(){initAudio();sfx.click();var sv=loadSave();if(sv){MODE='camp';roster=sv.roster;showBrief(sv.night);}};
+  $('#btnSur').onclick=function(){initAudio();sfx.click();$('#surWarn').style.display='flex';};
+  $('#btnWarnBack').onclick=function(){sfx.click();$('#surWarn').style.display='none';};
+  $('#btnWarnGo').onclick=function(){sfx.click();$('#surWarn').style.display='none';startSurvivor();};
+  $('#btnBriefBack').onclick=function(){sfx.click();refreshTitle();show('s-title');};
+  $('#btnGo').onclick=function(){startNight(curNight);};
+  $('#btnRules').onclick=function(){initAudio();sfx.click();toggleRules();};
+  $('#btnBlue').onclick=function(){useBlue();};
+  $('#btnMute').onclick=function(){initAudio();setMute(!muted);};
+  $('#btnMute0').onclick=function(){initAudio();setMute(!muted);};
+  $('#grid').addEventListener('click',function(e){
+    var t=e.target;while(t&&t!==this&&!(t.getAttribute&&t.getAttribute('data-i')!==null))t=t.parentNode;
+    if(!t||t===this||!G||G.over||G.paused)return;
+    initAudio();sfx.click();setSel(parseInt(t.getAttribute('data-i'),10));
+  });
+  $('#tools').addEventListener('click',function(e){
+    var t=e.target;while(t&&t!==this&&!(t.getAttribute&&t.getAttribute('data-tool')))t=t.parentNode;
+    if(!t||t===this)return;
+    useTool(t.getAttribute('data-tool'));
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden&&G&&!G.over&&running&&!G.paused)toggleRules();
+  });
+}
+
+
+/* ---------- LANGUAGE ---------- */
+function setLangLabels(){var l=document.querySelectorAll('.langbtn');for(var i=0;i<l.length;i++)l[i].textContent=LANG==='th'?'🌐 EN':'🌐 ไทย';}
+function applyStatic(){
+  var els=document.querySelectorAll('[data-t]');
+  for(var i=0;i<els.length;i++){
+    var e=els[i],id=e.getAttribute('data-t');
+    if(!e.hasAttribute('data-th'))e.setAttribute('data-th',e.innerHTML);
+    e.innerHTML=(LANG==='en'&&ENH[id]!==undefined)?ENH[id]:e.getAttribute('data-th');
+  }
+  var m=$('#mgrName');if(m)m.textContent=MANAGER;
+  document.title=LANG==='en'?'Night Shift Rules — CCTV Manager':'คุมกฎกะดึก — ผู้จัดการดูกล้อง';
+  document.documentElement.lang=LANG;
+  setLangLabels();
+}
+function setLang(l){
+  LANG=l;try{localStorage.setItem('kumkot_lang',l);}catch(e){}
+  buildData();
+  if(MODE!=='sur'&&G&&NIGHTS[G.ni])G.cfg=NIGHTS[G.ni];
+  applyStatic();fitReset();
+  var tb=document.querySelectorAll('#tools .tool');
+  for(var i=0;i<tb.length;i++){var sp=tb[i].querySelector('span');var tl=TOOLS[tb[i].getAttribute('data-tool')];if(sp&&tl)sp.textContent=tl.name;}
+  for(var j=0;j<tiles.length;j++){tiles[j].lastCap='';tiles[j].lastNm='~';}
+  var on=document.querySelector('.screen.on').id;
+  if(on==='s-title')refreshTitle();
+  else if(on==='s-brief')showBrief(curNight);
+  else if(on==='s-result'&&G)showResult(G._win,true);
+  else if(on==='s-end')showEnding(true);
+  else if(on==='s-score')showSurFinal(true);
+  else if(on==='s-game'&&G){
+    $('#nightlbl').textContent=nightLabel(G.ni);
+    $('#btnBlue').textContent=G.blueUsed?L(187,'💙 ใช้ไฟสีฟ้าแล้ว'):L(154,'💙 ไฟสีฟ้า — ทุกอย่างกลับเป็นปกติ 15 นาที (ใช้ได้ 1 ครั้ง)');
+    setSel(G.sel);buildCheat();
+    var ov=$('#overlay');if(ov.classList.contains('on')){toggleRules();toggleRules();}
+  }
+}
+document.addEventListener('click',function(e){
+  var t=e.target;
+  while(t&&t!==document){
+    if(t.classList&&t.classList.contains('langbtn')){initAudio();sfx.click();setLang(LANG==='th'?'en':'th');return;}
+    t=t.parentNode;
+  }
+});
+buildGameDom();wire();applyStatic();drawTitle();refreshTitle();playsLoad();
+(function(){var sc=$('#scareCv');if(sc&&sc.getContext)sc.getContext('2d').imageSmoothingEnabled=false;})();
+
+window.__dbg={get G(){return G;},update:update,render:render,startNight:startNight,useTool:useTool,useBlue:useBlue,setSel:setSel,showBrief:showBrief,
+  get NIGHTS(){return NIGHTS;},get ANOM(){return ANOM;},NIGHT_LEN:NIGHT_LEN,BLUE_SEC:BLUE_SEC,HOUR:HOUR,checkSprites:checkSprites,seqOf:seqOf,summon:summon,showResult:showResult,startSurvivor:startSurvivor,showSurFinal:showSurFinal,surCfg:surCfg,getSur:function(){return sur;},getMode:function(){return MODE;},drawScoreCard:drawScoreCard,showEnding:showEnding,toggleRules:toggleRules,setLang:setLang,rulesHTML:rulesHTML,getLang:function(){return LANG;},fitGrid:fitGrid,
+  getRoster:function(){return roster.slice();},setRoster:function(r){roster=r.slice();},setNight:function(n){curNight=n;}};
+})();
+</script>
+</body>
+</html>
